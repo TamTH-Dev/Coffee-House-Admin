@@ -8,6 +8,7 @@ import { ProductCreateComponent } from './product-create/product-create.componen
 import { ProductListComponent } from './product-list/product-list/product-list.component';
 import { MaterialModule } from '../../shared/material.module';
 import { ProductEditComponent } from './product-edit/product-edit/product-edit.component';
+import { ProductResolver } from '../../services/product-resolver.service';
 
 const PRODUCT_ROUTES = [
   {
@@ -18,6 +19,11 @@ const PRODUCT_ROUTES = [
     path: 'add',
     component: ProductCreateComponent
   },
+  {
+    path: ':id/edit',
+    component: ProductEditComponent,
+    resolve: { resolvedProduct: ProductResolver }
+  }
 ]
 
 @NgModule({

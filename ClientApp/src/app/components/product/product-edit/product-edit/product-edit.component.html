@@ -1,1 +1,164 @@
-<p>product-edit works!</p>
+<div class="failed-loading" *ngIf="result == null">
+  <span>Product Not Found</span>
+</div>
+<div class="form-container" *ngIf="result != null">
+  <div class="form-header">
+    <div class="form-icon">
+      <fa-icon [icon]="faEdit"></fa-icon>
+    </div>
+    <h3 class="form-header">Product Editting Form</h3>
+  </div>
+  <form
+    novalidate
+    class="form"
+    #form="ngForm"
+    autocomplete="off"
+    (submit)="onSave(form)"
+  >
+    <div class="form-item">
+      <mat-form-field class="form-field">
+        <mat-label>Product's Name</mat-label>
+        <input
+          matInput
+          required
+          minlength="3"
+          [(ngModel)]="product.productName"
+          name="productName"
+          #productName="ngModel"
+          placeholder="Product's Name"
+        />
+      </mat-form-field>
+      <span class="invalid-feedback">
+        <span
+          *ngIf="
+            (productName.touched || productName.dirty) &&
+            productName.errors?.required
+          "
+        >
+          Product's Name is required.
+        </span>
+        <span
+          *ngIf="
+            (productName.touched || productName.dirty) &&
+            productName.errors?.minlength
+          "
+        >
+          Product's Name must be at least three characters.
+        </span>
+      </span>
+    </div>
+    <div class="form-item">
+      <mat-form-field class="form-field">
+        <mat-label>Category</mat-label>
+        <mat-select
+          required
+          #category="ngModel"
+          [(ngModel)]="product.category"
+          name="category"
+        >
+          <mat-option *ngFor="let ct of categories" [value]="ct">
+            {{ ct }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span class="invalid-feedback">
+        <span
+          *ngIf="
+            (category.touched || category.dirty) && category.errors?.required
+          "
+        >
+          Category is required.
+        </span>
+      </span>
+    </div>
+    <div class="form-item">
+      <mat-form-field class="form-field">
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          required
+          minlength="10"
+          #description="ngModel"
+          [(ngModel)]="product.description"
+          name="description"
+          placeholder="Description about product..."
+        ></textarea>
+      </mat-form-field>
+      <span class="invalid-feedback">
+        <span
+          *ngIf="
+            (description.touched || description.dirty) &&
+            description.errors?.required
+          "
+        >
+          Description is required.
+        </span>
+        <span
+          *ngIf="
+            (description.touched || description.dirty) &&
+            description.errors?.minlength
+          "
+        >
+          Description must be at least ten characters.
+        </span>
+      </span>
+    </div>
+    <div class="form-item">
+      <mat-form-field class="form-field">
+        <mat-label>Quantity</mat-label>
+        <input
+          matInput
+          required
+          pattern="^[0-9]+([.][0]+)?$"
+          #quantity="ngModel"
+          [(ngModel)]="product.quantity"
+          name="quantity"
+          placeholder="Product's Quantity"
+        />
+      </mat-form-field>
+      <span class="invalid-feedback">
+        <span
+          *ngIf="
+            (quantity.touched || quantity.dirty) && quantity.errors?.required
+          "
+        >
+          Product's Quantity is required
+        </span>
+        <span
+          *ngIf="
+            (quantity.touched || quantity.dirty) && quantity.errors?.pattern
+          "
+        >
+          Product's Quantity must be an integer
+        </span>
+      </span>
+    </div>
+    <div class="form-item">
+      <mat-form-field class="form-field">
+        <mat-label>Price</mat-label>
+        <input
+          matInput
+          required
+          pattern="^([0-9]+[.])?[0-9]+$"
+          [(ngModel)]="product.price"
+          name="price"
+          #price="ngModel"
+          placeholder="Product's Price"
+        />
+      </mat-form-field>
+      <span class="invalid-feedback">
+        <span *ngIf="(price.touched || price.dirty) && price.errors?.required">
+          Product's Price is required
+        </span>
+        <span *ngIf="(price.touched || price.dirty) && price.errors?.pattern">
+          Product's Price must be an unsign number
+        </span>
+      </span>
+    </div>
+    <div class="form-btn">
+      <button mat-raised-button color="primary" type="submit">
+        Save
+      </button>
+    </div>
+  </form>
+</div>

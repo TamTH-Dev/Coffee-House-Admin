@@ -89,3 +89,9 @@ textarea {
   padding-left: 85px;
   color: #3c4858;
 }
+
+.failed-loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #f00;
+}
