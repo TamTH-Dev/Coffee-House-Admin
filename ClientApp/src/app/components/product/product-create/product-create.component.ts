@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { faFolderPlus } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { faFolderPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { Product, Category } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-create',
-  templateUrl: './product-create.component.html',
-  styleUrls: ['./product-create.component.css']
+  templateUrl: './product-create.component.html'
 })
 export class ProductCreateComponent implements OnInit {
   faFolderPlus = faFolderPlus;
@@ -32,7 +31,6 @@ export class ProductCreateComponent implements OnInit {
   onCreate(form: NgForm): void {
     if (form.valid) {
       this.product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, status: true };
-      console.log(this.product);
       this.productService.createProduct(this.product)
         .subscribe({
           next: () => {
@@ -41,13 +39,13 @@ export class ProductCreateComponent implements OnInit {
           error: err => {
             console.log(err);
           }
-        })
+        });
     }
   }
 
   private onCreateSuccess(form: NgForm): void {
     this.resetForm(form);
-    this.router.navigate(['/product']);
+    this.router.navigate(['/products']);
   }
 
   private resetForm(form?: NgForm): void {

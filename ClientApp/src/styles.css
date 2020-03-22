@@ -11,7 +11,9 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #eee;
   background: url(./assets/cat_winter_fluffy_snow_99366_1920x1080.jpg) no-repeat;
+  background-attachment: fixed;
   background-size: 100% 100%;
+  z-index: -1;
 }
 
 .form {
@@ -43,7 +45,27 @@ textarea {
 
 .form-btn {
   margin-top: 20px;
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
+}
+
+.back-btn {
+  padding: 0 10px;
+  height: 36px;
+  line-height: 36px;
+  cursor: pointer;
+  color: #3f51b5;
+  outline: none;
+  transition: 250ms all ease-in-out;
+  border-radius: 3px;
+}
+
+span {
+  outline: none;
+}
+
+.back-btn:hover {
+  background-color: rgba(63, 81, 181, 0.1);
 }
 
 .form-container {
@@ -94,4 +116,10 @@ textarea {
   text-align: center;
   font-size: 1.2rem;
   color: #f00;
+}
+
+.form-header .delete-btn {
+  position: absolute;
+  right: 10%;
+  top: 20px;
 }

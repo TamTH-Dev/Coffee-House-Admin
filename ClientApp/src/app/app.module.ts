@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     FontAwesomeModule,
     HttpClientModule,
+    MaterialModule,
     RoutingModule
   ],
   bootstrap: [AppComponent]

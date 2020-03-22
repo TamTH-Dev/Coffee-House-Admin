@@ -3,6 +3,7 @@
     <div class="sidebar-header">
       <img src="../assets/logo.png" alt="Sidebar's Header Logo" />
     </div>
+    <mat-divider></mat-divider>
     <ul class="sidebar-menu">
       <li class="sidebar-item">
         <a
@@ -17,7 +18,7 @@
       <li class="sidebar-item">
         <a
           class="sidebar-link"
-          [routerLink]="['/product']"
+          [routerLink]="['/products']"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
         >
@@ -28,7 +29,7 @@
       <li class="sidebar-item">
         <a
           class="sidebar-link"
-          [routerLink]="['/product', 'add']"
+          [routerLink]="['/products', 'add']"
           routerLinkActive="active"
         >
           <fa-icon class="sidebar-link-icon" [icon]="faFolderPlus"></fa-icon>

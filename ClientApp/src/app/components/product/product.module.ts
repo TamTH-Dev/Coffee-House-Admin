@@ -9,6 +9,7 @@ import { ProductListComponent } from './product-list/product-list/product-list.c
 import { MaterialModule } from '../../shared/material.module';
 import { ProductEditComponent } from './product-edit/product-edit/product-edit.component';
 import { ProductResolver } from '../../services/product-resolver.service';
+import { ProductDetailComponent } from './product-detail/product-detail/product-detail.component';
 
 const PRODUCT_ROUTES = [
   {
@@ -20,6 +21,11 @@ const PRODUCT_ROUTES = [
     component: ProductCreateComponent
   },
   {
+    path: ':id',
+    component: ProductDetailComponent,
+    resolve: { resolvedProduct: ProductResolver }
+  },
+  {
     path: ':id/edit',
     component: ProductEditComponent,
     resolve: { resolvedProduct: ProductResolver }
@@ -27,7 +33,12 @@ const PRODUCT_ROUTES = [
 ]
 
 @NgModule({
-  declarations: [ProductCreateComponent, ProductListComponent, ProductEditComponent],
+  declarations: [
+    ProductCreateComponent,
+    ProductListComponent,
+    ProductEditComponent,
+    ProductDetailComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

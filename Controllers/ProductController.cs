@@ -68,20 +68,6 @@ namespace CoffeeHouse.Controllers {
             return CreatedAtAction("GetProduct", new { id = product.ProductID }, product);
         }
 
-        // DELETE: api/Product/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Product>> DeleteProduct(int id) {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null) {
-                return NotFound();
-            }
-
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-
-            return product;
-        }
-
         private bool ProductExists(int id) {
             return _context.Products.Any(e => e.ProductID == id);
         }

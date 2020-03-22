@@ -6,23 +6,34 @@
         alt="Product's Image"
       />
     </span>
-    <span class="product-info product-name">{{ product.productName }}</span>
+    <span class="product-info product-name">
+      <span [routerLink]="['/products', product.productID]">
+        {{ product.productName }}
+      </span>
+    </span>
     <span class="product-info category">{{ product.category }}</span>
-    <span class="product-info quantity">{{ product.quantity }}</span>
+    <span class="product-info quantity">
+      {{ product.quantity }} left product{{ product.quantity > 1 ? "s" : "" }}
+    </span>
     <span class="product-info price">{{ product.price }} $</span>
-    <span class="product-info edit-btn">
+    <span class="product-info edit-btn" *ngIf="product.status != false">
       <button
         mat-raised-button
         color="primary"
         type="button"
         [routerLink]="[product.productID, 'edit']"
       >
-        Edit Product
+        Edit
       </button>
     </span>
-    <span class="product-info delete-btn">
-      <button mat-raised-button color="warn" type="button">
-        Delete Product
+    <span class="product-info delete-btn" *ngIf="product.status != false">
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="onDelete(product.productID)"
+      >
+        Delete
       </button>
     </span>
   </div>

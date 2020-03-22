@@ -1,12 +1,22 @@
-<div class="failed-loading" *ngIf="result == null">
+<div class="failed-loading" *ngIf="result == false">
   <span>Product Not Found</span>
 </div>
-<div class="form-container" *ngIf="result != null">
+<div class="form-container" *ngIf="result != false">
   <div class="form-header">
     <div class="form-icon">
       <fa-icon [icon]="faEdit"></fa-icon>
     </div>
     <h3 class="form-header">Product Editting Form</h3>
+    <button
+      mat-raised-button
+      class="delete-btn"
+      color="warn"
+      type="button"
+      (click)="onDelete()"
+      *ngIf="product.status == true"
+    >
+      Delete this product
+    </button>
   </div>
   <form
     novalidate
@@ -156,6 +166,9 @@
       </span>
     </div>
     <div class="form-btn">
+      <span class="back-btn" [routerLink]="['/products']">
+        Back to Products List Page
+      </span>
       <button mat-raised-button color="primary" type="submit">
         Save
       </button>

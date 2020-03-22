@@ -8,12 +8,11 @@ import { Product, Category } from 'src/app/models/product.model';
 
 @Component({
   selector: 'app-product-edit',
-  templateUrl: './product-edit.component.html',
-  styleUrls: ['./product-edit.component.css']
+  templateUrl: './product-edit.component.html'
 })
 export class ProductEditComponent implements OnInit {
   faEdit = faEdit;
-  result: String;
+  result: boolean;
   product: Product;
   categories: Category[] = [
     Category.MilkTea,
@@ -38,15 +37,15 @@ export class ProductEditComponent implements OnInit {
     this.product = product;
 
     if (!this.product) {
-      this.result = null;
+      this.result = false;
     } else {
-      this.result = 'Success';
+      this.result = true;
     }
   }
 
   onSave(form: NgForm): void {
     if (form.valid) {
-      this.product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, productID: this.product.productID };
+      this.product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, productID: this.product.productID, status: true };
       this.productService.updateProduct(this.product)
         .subscribe({
           next: () => {
@@ -55,19 +54,36 @@ export class ProductEditComponent implements OnInit {
           error: err => {
             console.log(err);
           }
-        })
+        });
     }
+  }
+
+  onDelete(): void {
+    const deletedProduct = { ...this.product, status: false };
+    this.productService.updateProduct(deletedProduct)
+      .subscribe({
+        next: () => {
+          this.onDeleteSuccess();
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
   }
 
   private onSaveSuccess(form: NgForm): void {
     this.resetForm(form);
-    this.router.navigate(['/product']);
+    this.router.navigate(['/products']);
   }
 
   private resetForm(form: NgForm): void {
     if (form != null) {
       form.resetForm();
     }
+  }
+
+  private onDeleteSuccess(): void {
+    this.router.navigate(['/products']);
   }
 
 }

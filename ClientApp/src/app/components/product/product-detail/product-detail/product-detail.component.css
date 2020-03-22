@@ -1,0 +1,56 @@
+.form-detail {
+  display: flex;
+}
+
+.left-part {
+  width: 40%;
+  position: relative;
+}
+
+.left-part img {
+  width: 90%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.right-part {
+  width: 60%;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.item {
+  margin-bottom: 10px;
+}
+
+.item span {
+  display: block;
+}
+
+.item .title {
+  font-size: 1.4rem;
+  font-weight: 400;
+  padding-bottom: 5px;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10% 0 1%;
+  margin-top: 20px;
+}
+
+.back-btn {
+  padding: 0 10px;
+  height: 36px;
+  line-height: 36px;
+  cursor: pointer;
+  color: #3f51b5;
+  transition: 250ms all ease-in-out;
+  border-radius: 3px;
+}
+
+.back-btn:hover {
+  background-color: rgba(63, 81, 181, 0.1);
+}

@@ -21,4 +21,27 @@ export class ProductListComponent implements OnInit {
     });
   }
 
+  onDelete(productID: number): void {
+    const deletedProduct = { ...this.getProduct(productID), status: false };
+    this.productService.updateProduct(deletedProduct)
+      .subscribe({
+        next: () => {
+          this.deleteProduct(productID);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+  }
+
+  getProduct(productID: number): Product {
+    return this.products.filter(product => product.productID === productID)[0];
+  }
+
+  deleteProduct(productID: number): void {
+    this.products.map(product => {
+      if (product.productID === productID) product.status = false
+    });
+  }
+
 }

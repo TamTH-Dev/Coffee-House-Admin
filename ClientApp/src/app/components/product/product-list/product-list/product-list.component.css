@@ -19,15 +19,14 @@ span {
 }
 
 .product-info {
-  line-height: 120px;
   font-size: 17px;
   display: flex;
-  justify-content: center;
   align-items: center;
 }
 
 .product-img {
   width: 20%;
+  justify-content: center;
 }
 
 .product-img img {
@@ -36,15 +35,24 @@ span {
 }
 
 .product-name {
-  width: 15%;
+  width: 20%;
+  padding: 0 10px 0 5px;
+}
+
+.product-name span {
+  cursor: pointer;
+}
+
+.product-name span:hover {
+  text-decoration: underline;
 }
 
 .category {
-  width: 15%;
+  width: 13%;
 }
 
 .quantity {
-  width: 10%;
+  width: 17%;
 }
 
 .price {
@@ -52,9 +60,9 @@ span {
 }
 
 .edit-btn {
-  width: 15%;
+  width: 10%;
 }
 
 .delete-btn {
-  width: 15%;
+  width: 10%;
 }
