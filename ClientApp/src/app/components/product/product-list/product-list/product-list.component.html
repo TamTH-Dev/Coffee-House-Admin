@@ -1,0 +1,29 @@
+<div class="product-list">
+  <div class="product-item" *ngFor="let product of products">
+    <span class="product-info product-img">
+      <img
+        src="../../../../../assets/cat_winter_fluffy_snow_99366_1920x1080.jpg"
+        alt="Product's Image"
+      />
+    </span>
+    <span class="product-info product-name">{{ product.productName }}</span>
+    <span class="product-info category">{{ product.category }}</span>
+    <span class="product-info quantity">{{ product.quantity }}</span>
+    <span class="product-info price">{{ product.price }} $</span>
+    <span class="product-info edit-btn">
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        [routerLink]="[product.productID, 'edit']"
+      >
+        Edit Product
+      </button>
+    </span>
+    <span class="product-info delete-btn">
+      <button mat-raised-button color="warn" type="button">
+        Delete Product
+      </button>
+    </span>
+  </div>
+</div>

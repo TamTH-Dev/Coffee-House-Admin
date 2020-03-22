@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <img src="../assets/logo.png" alt="Sidebar's Header Logo" />
+    </div>
+    <ul class="sidebar-menu">
+      <li class="sidebar-item">
+        <a
+          class="sidebar-link"
+          [routerLink]="['/home']"
+          routerLinkActive="active"
+        >
+          <fa-icon class="sidebar-link-icon" [icon]="faHome"></fa-icon>
+          Home
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a
+          class="sidebar-link"
+          [routerLink]="['/product']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <fa-icon class="sidebar-link-icon" [icon]="faListUl"></fa-icon>
+          Product List
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a
+          class="sidebar-link"
+          [routerLink]="['/product', 'add']"
+          routerLinkActive="active"
+        >
+          <fa-icon class="sidebar-link-icon" [icon]="faFolderPlus"></fa-icon>
+          Add Product
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

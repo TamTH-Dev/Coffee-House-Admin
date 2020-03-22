@@ -1,0 +1,91 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #eee;
+  background: url(./assets/cat_winter_fluffy_snow_99366_1920x1080.jpg) no-repeat;
+  background-size: 100% 100%;
+}
+
+.form {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.form-field {
+  width: 100%;
+}
+
+textarea {
+  height: 45px;
+}
+
+.form-item {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.invalid-feedback {
+  width: 100%;
+  position: absolute;
+  color: #f00;
+  font-size: 12px;
+  bottom: -5px;
+  left: 0;
+}
+
+.form-btn {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.form-container {
+  background-color: #fff;
+  width: 80%;
+  margin: 0 auto;
+  padding: 0 0 30px 0;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.2),
+    0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.form-header {
+  height: 46px;
+  line-height: 46px;
+  margin-bottom: 30px;
+  font-size: 1.2rem;
+  position: relative;
+  padding: 0 10%;
+}
+
+.form-icon {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  left: 10%;
+  top: -50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #3f51b5;
+  border-radius: 4px;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.14),
+    0 7px 10px -5px rgba(63, 81, 181, 0.4);
+}
+
+.form-icon fa-icon {
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.form-header h3 {
+  padding-left: 85px;
+  color: #3c4858;
+}
