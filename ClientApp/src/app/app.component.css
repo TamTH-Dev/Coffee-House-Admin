@@ -1,7 +1,8 @@
 .container {
   width: 100%;
   box-sizing: border-box;
-  padding-left: 20%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .sidebar {
@@ -84,11 +85,12 @@ mat-divider {
 }
 
 .main-content {
-  width: 100%;
+  width: 80%;
   min-height: 100vh;
   padding: 10px 0 60px 0;
   box-sizing: border-box;
   background-color: #eee;
+  position: relative;
 }
 
 .main-content-header {

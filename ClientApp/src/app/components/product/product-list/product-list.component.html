@@ -35,10 +35,7 @@
       />
     </span>
     <span class="product-info product-name">
-      <span
-        [routerLink]="['/products', product.productID]"
-        queryParamsHandling="preserve"
-      >
+      <span [routerLink]="[product.productID]" queryParamsHandling="preserve">
         {{ product.productName }}
       </span>
     </span>

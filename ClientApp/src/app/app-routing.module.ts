@@ -10,7 +10,7 @@ const APP_ROUTES = [
   {
     path: 'products',
     loadChildren: () => import('./components/product/product.module')
-      .then(m => m.ProductModule),
+      .then(m => m.ProductModule)
   },
   { path: '**', component: PageNotFoundComponent }
 ];

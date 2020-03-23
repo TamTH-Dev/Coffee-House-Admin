@@ -71,7 +71,6 @@ export class ProductEditComponent implements OnInit {
   }
 
   private onSaveSuccess(form: NgForm): void {
-    this.resetForm(form);
     this.router.navigate(['/products'], {
       queryParamsHandling: "preserve"
     });

@@ -11,6 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
+  showLoadingIndicator: boolean = true;
   private _faSearch = faSearch;
   private _isSuccess: boolean;
   private products: Product[] = [];
@@ -26,7 +27,7 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) { }
 
   set nameFilter(value: string) {
