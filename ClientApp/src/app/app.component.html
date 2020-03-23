@@ -39,6 +39,26 @@
     </ul>
   </div>
   <div class="main-content">
+    <div class="main-content-header">
+      <ul class="navbar-nav">
+        <nav class="item">
+          <button mat-button>
+            <mat-icon matBadge="15" matBadgeColor="warn">
+              <fa-icon [icon]="faBell"></fa-icon>
+            </mat-icon>
+          </button>
+        </nav>
+        <nav class="item">
+          <button mat-button [matMenuTriggerFor]="beforeMenu">
+            <mat-icon><fa-icon [icon]="faUser"></fa-icon></mat-icon>
+          </button>
+          <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item>Settings</button>
+            <button mat-menu-item>Logout</button>
+          </mat-menu>
+        </nav>
+      </ul>
+    </div>
     <router-outlet></router-outlet>
   </div>
 </div>

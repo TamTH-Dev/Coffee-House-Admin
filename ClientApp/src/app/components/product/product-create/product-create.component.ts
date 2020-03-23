@@ -7,13 +7,12 @@ import { Product, Category } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
-  selector: 'app-product-create',
   templateUrl: './product-create.component.html'
 })
 export class ProductCreateComponent implements OnInit {
-  faFolderPlus = faFolderPlus;
-  product: Product;
-  categories: Category[] = [
+  private _faFolderPlus = faFolderPlus;
+  private _product: Product;
+  private _categories: Category[] = [
     Category.MilkTea,
     Category.Coffee,
     Category.Pudding,
@@ -24,13 +23,25 @@ export class ProductCreateComponent implements OnInit {
     private router: Router
   ) { }
 
+  get categories(): Category[] {
+    return this._categories;
+  }
+
+  get product(): Product {
+    return this._product;
+  }
+
+  get faFolderPlus() {
+    return this._faFolderPlus;
+  }
+
   ngOnInit(): void {
     this.resetForm();
   }
 
   onCreate(form: NgForm): void {
     if (form.valid) {
-      this.product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, status: true };
+      this._product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, status: true };
       this.productService.createProduct(this.product)
         .subscribe({
           next: () => {
@@ -52,7 +63,7 @@ export class ProductCreateComponent implements OnInit {
     if (form != null) {
       form.resetForm();
     }
-    this.product = {
+    this._product = {
       productID: null,
       productName: '',
       category: null,

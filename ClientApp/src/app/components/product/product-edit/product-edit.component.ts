@@ -7,7 +7,6 @@ import { ProductService } from 'src/app/services/product.service';
 import { Product, Category } from 'src/app/models/product.model';
 
 @Component({
-  selector: 'app-product-edit',
   templateUrl: './product-edit.component.html'
 })
 export class ProductEditComponent implements OnInit {

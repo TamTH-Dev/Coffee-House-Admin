@@ -5,7 +5,7 @@
 }
 
 .sidebar {
-  background: rgba(229, 57, 53, 0.8);
+  background: rgba(63, 81, 181, 0.8);
   position: fixed;
   top: 0;
   left: 0;
@@ -86,7 +86,20 @@ mat-divider {
 .main-content {
   width: 100%;
   min-height: 100vh;
-  padding: 60px 0 40px 0;
+  padding: 10px 0 60px 0;
   box-sizing: border-box;
   background-color: #eee;
+}
+
+.main-content-header {
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  padding-right: 20px;
+}
+
+.navbar-nav {
+  display: flex;
+  padding-left: 10px;
 }

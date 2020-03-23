@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 
-import { RoutingModule } from './shared/routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './shared/material.module';
 
 import { AppComponent } from './app.component';
@@ -19,7 +19,7 @@ import { AppComponent } from './app.component';
     FontAwesomeModule,
     HttpClientModule,
     MaterialModule,
-    RoutingModule
+    AppRoutingModule
   ],
   bootstrap: [AppComponent]
 })

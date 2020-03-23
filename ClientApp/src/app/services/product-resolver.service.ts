@@ -20,4 +20,18 @@ export class ProductResolver implements Resolve<Product> {
     }
     return this.productService.getProduct(+id);
   }
+
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProductsResolver implements Resolve<Product[]> {
+
+  constructor(private productService: ProductService) { }
+
+  resolve(): Observable<Product[]> {
+    return this.productService.getProducts();
+  }
+
 }

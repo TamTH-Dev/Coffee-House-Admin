@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { faListUl } from '@fortawesome/free-solid-svg-icons';
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -14,4 +16,6 @@ export class AppComponent {
   faHome = faHome;
   faListUl = faListUl;
   faFolderPlus = faFolderPlus;
+  faBell = faBell;
+  faUser = faUser;
 }

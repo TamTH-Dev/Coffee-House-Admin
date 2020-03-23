@@ -1,9 +1,29 @@
 <div class="product-list">
-  <div class="product-item" *ngFor="let product of products">
+  <div class="search-form">
+    <mat-form-field color="accent">
+      <input
+        (keyup.enter)="onFilter()"
+        matInput
+        placeholder="Search..."
+        [(ngModel)]="nameFilter"
+      />
+    </mat-form-field>
+    <button id="search-btn" mat-mini-fab (click)="onFilter()">
+      <fa-icon [icon]="faSearch"></fa-icon>
+    </button>
+  </div>
+  <!-- <mat-tab-group>
+    <mat-tab label="All" [routerLink]="['all']"></mat-tab>
+    <mat-tab label="Milk Tea" [routerLink]="['milk-tea']"></mat-tab>
+    <mat-tab label="Coffee" [routerLink]="['coffee']"></mat-tab>
+    <mat-tab label="Pudding" [routerLink]="['pudding']"></mat-tab>
+    <router-outlet></router-outlet>
+  </mat-tab-group> -->
+  <div class="product-item" *ngFor="let product of filteredProducts">
     <span class="product-info product-img">
       <img
         src="../../../../../assets/cat_winter_fluffy_snow_99366_1920x1080.jpg"
-        alt="Product's Image"
+        alt="product's image"
       />
     </span>
     <span class="product-info product-name">
@@ -23,7 +43,7 @@
         type="button"
         [routerLink]="[product.productID, 'edit']"
       >
-        Edit
+        edit
       </button>
     </span>
     <span class="product-info delete-btn" *ngIf="product.status != false">
@@ -33,7 +53,7 @@
         type="button"
         (click)="onDelete(product.productID)"
       >
-        Delete
+        delete
       </button>
     </span>
   </div>

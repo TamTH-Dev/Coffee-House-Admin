@@ -4,22 +4,32 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
 
-
 @Component({
-  selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  faInfoCircle = faInfoCircle;
-  result: boolean;
-  product: Product;
+  private _faInfoCircle = faInfoCircle;
+  private _isSuccess: boolean;
+  private _product: Product;
 
   constructor(
     private productService: ProductService,
     private router: Router,
     private route: ActivatedRoute,
   ) { }
+
+  get isSuccess(): boolean {
+    return this._isSuccess;
+  }
+
+  get product(): Product {
+    return this._product;
+  }
+
+  get faInfoCircle() {
+    return this._faInfoCircle;
+  }
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
@@ -28,13 +38,13 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
-  onProductRetrieved(product: Product): void {
-    this.product = product;
+  private onProductRetrieved(product: Product): void {
+    this._product = product;
 
     if (!this.product) {
-      this.result = false;
+      this._isSuccess = false;
     } else {
-      this.result = true;
+      this._isSuccess = true;
     }
   }
 
