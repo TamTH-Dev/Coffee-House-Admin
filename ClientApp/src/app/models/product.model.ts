@@ -8,6 +8,11 @@ export interface Product {
   status?: boolean;
 }
 
+export interface CategoryFilter {
+  type: string,
+  isActive: boolean
+}
+
 export enum Category {
   MilkTea = 'Milk Tea',
   Coffee = 'Coffee',

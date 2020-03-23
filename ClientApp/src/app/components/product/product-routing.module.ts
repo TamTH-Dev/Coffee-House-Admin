@@ -12,29 +12,6 @@ const PRODUCT_ROUTES = [
     path: '',
     component: ProductListComponent,
     resolve: { resolvedProducts: ProductsResolver }
-    // children: [
-    //   {
-    //     path: '',
-    //     redirectTo: 'all',
-    //     pathMatch: 'full'
-    //   },
-    //   {
-    //     path: 'all',
-    //     component: ProductListContentComponent
-    //   },
-    //   {
-    //     path: 'milk-tea',
-    //     component: ProductListContentComponent
-    //   },
-    //   {
-    //     path: 'coffee',
-    //     component: ProductListContentComponent
-    //   },
-    //   {
-    //     path: 'pudding',
-    //     component: ProductListContentComponent
-    //   }
-    // ]
   },
   {
     path: 'add',

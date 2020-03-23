@@ -72,7 +72,9 @@ export class ProductEditComponent implements OnInit {
 
   private onSaveSuccess(form: NgForm): void {
     this.resetForm(form);
-    this.router.navigate(['/products']);
+    this.router.navigate(['/products'], {
+      queryParamsHandling: "preserve"
+    });
   }
 
   private resetForm(form: NgForm): void {
@@ -82,7 +84,9 @@ export class ProductEditComponent implements OnInit {
   }
 
   private onDeleteSuccess(): void {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/products'], {
+      queryParamsHandling: "preserve"
+    });
   }
 
 }

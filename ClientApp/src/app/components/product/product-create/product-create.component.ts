@@ -56,7 +56,9 @@ export class ProductCreateComponent implements OnInit {
 
   private onCreateSuccess(form: NgForm): void {
     this.resetForm(form);
-    this.router.navigate(['/products']);
+    this.router.navigate(['/products'], {
+      queryParamsHandling: "preserve"
+    });
   }
 
   private resetForm(form?: NgForm): void {

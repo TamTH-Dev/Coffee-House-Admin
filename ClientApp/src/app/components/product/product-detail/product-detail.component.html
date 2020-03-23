@@ -53,7 +53,11 @@
     </div>
   </div>
   <div class="form-footer">
-    <span class="back-btn" [routerLink]="['/products']">
+    <span
+      class="back-btn"
+      [routerLink]="['/products']"
+      queryParamsHandling="preserve"
+    >
       Back to Products List Page
     </span>
     <button
@@ -62,6 +66,7 @@
       type="button"
       [routerLink]="['/products', product.productID, 'edit']"
       *ngIf="product.status == true"
+      queryParamsHandling="preserve"
     >
       Edit
     </button>

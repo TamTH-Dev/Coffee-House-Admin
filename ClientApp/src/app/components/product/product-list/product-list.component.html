@@ -2,23 +2,31 @@
   <div class="search-form">
     <mat-form-field color="accent">
       <input
-        (keyup.enter)="onFilter()"
+        (keyup.enter)="onNameFilter()"
         matInput
         placeholder="Search..."
         [(ngModel)]="nameFilter"
+        autocomplete="off"
       />
     </mat-form-field>
-    <button id="search-btn" mat-mini-fab (click)="onFilter()">
+    <button id="search-btn" mat-mini-fab (click)="onNameFilter()">
       <fa-icon [icon]="faSearch"></fa-icon>
     </button>
   </div>
-  <!-- <mat-tab-group>
-    <mat-tab label="All" [routerLink]="['all']"></mat-tab>
-    <mat-tab label="Milk Tea" [routerLink]="['milk-tea']"></mat-tab>
-    <mat-tab label="Coffee" [routerLink]="['coffee']"></mat-tab>
-    <mat-tab label="Pudding" [routerLink]="['pudding']"></mat-tab>
-    <router-outlet></router-outlet>
-  </mat-tab-group> -->
+  <div class="filter-btn-container">
+    <button
+      type="button"
+      mat-button
+      *ngFor="let cf of categoryFilters"
+      class="filter-btn"
+      [ngClass]="{ active: cf.isActive }"
+      [routerLink]=""
+      [queryParams]="{ category: cf.type }"
+    >
+      {{ cf.type }}
+      <span class="filter-btn-underline"></span>
+    </button>
+  </div>
   <div class="product-item" *ngFor="let product of filteredProducts">
     <span class="product-info product-img">
       <img
@@ -27,7 +35,10 @@
       />
     </span>
     <span class="product-info product-name">
-      <span [routerLink]="['/products', product.productID]">
+      <span
+        [routerLink]="['/products', product.productID]"
+        queryParamsHandling="preserve"
+      >
         {{ product.productName }}
       </span>
     </span>
@@ -42,8 +53,9 @@
         color="primary"
         type="button"
         [routerLink]="[product.productID, 'edit']"
+        queryParamsHandling="preserve"
       >
-        edit
+        Edit
       </button>
     </span>
     <span class="product-info delete-btn" *ngIf="product.status != false">
@@ -53,7 +65,7 @@
         type="button"
         (click)="onDelete(product.productID)"
       >
-        delete
+        Delete
       </button>
     </span>
   </div>

@@ -153,7 +153,11 @@
       </span>
     </div>
     <div class="form-btn">
-      <span class="back-btn" [routerLink]="['/products']">
+      <span
+        class="back-btn"
+        [routerLink]="['/products']"
+        queryParamsHandling="preserve"
+      >
         Back to Products List Page
       </span>
       <button mat-raised-button color="primary" type="submit">

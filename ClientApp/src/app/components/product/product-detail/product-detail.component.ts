@@ -62,7 +62,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private onDeleteSuccess(): void {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/products'], {
+      queryParamsHandling: 'preserve'
+    });
   }
 
   onRestore(): void {
@@ -79,7 +81,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private onRestoreSuccess(): void {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/products'], {
+      queryParamsHandling: 'preserve'
+    });
   }
 
 }

@@ -22,7 +22,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     FormsModule,
     FontAwesomeModule,
     MaterialModule,
-    ProductRoutingModule
+    ProductRoutingModule,
   ]
 })
 export class ProductModule { }
