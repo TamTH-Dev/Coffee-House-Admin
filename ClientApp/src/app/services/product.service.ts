@@ -16,7 +16,7 @@ export class ProductService {
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.productUrl)
       .pipe(
-        delay(2000),
+        // delay(1500),
         catchError(err => {
           return throwError(err);
         })

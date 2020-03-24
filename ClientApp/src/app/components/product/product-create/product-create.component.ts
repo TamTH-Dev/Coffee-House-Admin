@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 
 import { Product, Category } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
@@ -20,7 +21,8 @@ export class ProductCreateComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   get categories(): Category[] {
@@ -45,7 +47,7 @@ export class ProductCreateComponent implements OnInit {
       this.productService.createProduct(this.product)
         .subscribe({
           next: () => {
-            this.onCreateSuccess(form);
+            this.onCreateSuccess();
           },
           error: err => {
             console.log(err);
@@ -54,8 +56,8 @@ export class ProductCreateComponent implements OnInit {
     }
   }
 
-  private onCreateSuccess(form: NgForm): void {
-    this.resetForm(form);
+  private onCreateSuccess(): void {
+    setTimeout(() => this.toastr.success('Created Successfully!', 'Product Creating'), 1500);
     this.router.navigate(['/products'], {
       queryParamsHandling: "preserve"
     });

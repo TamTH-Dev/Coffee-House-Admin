@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 
 import { ProductService } from 'src/app/services/product.service';
 import { Product, Category } from 'src/app/models/product.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   templateUrl: './product-edit.component.html'
@@ -22,7 +23,8 @@ export class ProductEditComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -71,6 +73,7 @@ export class ProductEditComponent implements OnInit {
   }
 
   private onSaveSuccess(form: NgForm): void {
+    setTimeout(() => this.toastr.success('Updated Successfully!', 'Product Updating'), 1500);
     this.router.navigate(['/products'], {
       queryParamsHandling: "preserve"
     });
@@ -83,6 +86,7 @@ export class ProductEditComponent implements OnInit {
   }
 
   private onDeleteSuccess(): void {
+    setTimeout(() => this.toastr.success('Deleted Successfully!', 'Product Deleting'), 1500);
     this.router.navigate(['/products'], {
       queryParamsHandling: "preserve"
     });

@@ -1,43 +1,36 @@
-.product-list {
+.products-list-container {
+  width: 90%;
+  margin: 0 auto;
+  background: #f00;
+}
+
+.products-list {
   width: 100%;
 }
 
-.product-item {
-  width: 90%;
-  height: 120px;
-  margin: 0 auto;
-  margin-bottom: 15px;
-  background-color: #fff;
-  display: flex;
-  border: 1px solid #eee;
-  border-radius: 6px;
-  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.2),
-    0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+.row {
+  height: 100px;
 }
 
-span {
+.col {
+  position: relative;
+}
+
+.img-container {
+  width: 25%;
+}
+
+.img-container img {
+  width: 65%;
+  max-height: 85%;
+  position: absolute;
   display: block;
-}
-
-.product-info {
-  font-size: 17px;
-  display: flex;
-  align-items: center;
-}
-
-.product-img {
-  width: 20%;
-  justify-content: center;
-}
-
-.product-img img {
-  width: 90%;
-  max-height: 100px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .product-name {
   width: 20%;
-  padding: 0 10px 0 5px;
 }
 
 .product-name span {
@@ -48,65 +41,28 @@ span {
   text-decoration: underline;
 }
 
-.category {
-  width: 13%;
-}
-
 .quantity {
-  width: 17%;
+  width: 20%;
 }
 
 .price {
-  width: 10%;
+  width: 15%;
 }
 
-.edit-btn {
-  width: 10%;
+.actions {
+  width: 20%;
+  /* display: flex;
+  flex-flow: row wrap;
+  align-items: center; */
 }
 
-.delete-btn {
-  width: 10%;
+.actions button {
+  margin-right: 15px;
 }
 
-.search-form {
-  position: absolute;
-  top: 10px;
-  right: 160px;
-  height: 64px;
-  line-height: 64px;
-}
-
-.filter-btn-container {
-  display: flex;
-  width: 90%;
-  height: 48px;
-  margin: 0 auto;
-  margin-bottom: 30px;
-}
-
-.filter-btn {
-  flex: 1;
-  height: 48px;
-  line-height: 48px;
-  border-radius: 0;
-  transition: 250ms all ease-in-out;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+.actions mat-chip {
+  width: 5rem;
+  justify-content: center;
   padding: 0;
-  position: relative;
-}
-
-.filter-btn-underline {
-  width: 100%;
-  height: 2px;
-  transform: scaleX(0);
-  transition: 250ms all ease-in-out;
-  background-color: rgba(0, 0, 0, 0.1);
-  position: absolute;
-  bottom: -2px;
-}
-
-.filter-btn.active .filter-btn-underline {
-  transform: scaleX(1);
-  background-color: #3f51b5;
-  z-index: 2;
+  margin: 0;
 }

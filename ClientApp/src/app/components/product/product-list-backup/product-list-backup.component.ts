@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute } from '@angular/router';
 
 import { Product, CategoryFilter, Category } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
-import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list-backup.component.css'],
 })
 export class ProductListComponent implements OnInit {
-  listData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['image', 'productName', 'quantity', 'price', 'actions'];
-
   showLoadingIndicator: boolean = true;
+  private _faSearch = faSearch;
   private _isSuccess: boolean;
   private products: Product[] = [];
   private _nameFilter: string = '';
@@ -54,6 +52,10 @@ export class ProductListComponent implements OnInit {
     return this._isSuccess;
   }
 
+  get faSearch(): object {
+    return this._faSearch;
+  }
+
   private setProducts(products: Product[]): void {
     this.products = products;
   }
@@ -70,7 +72,7 @@ export class ProductListComponent implements OnInit {
     return this._categoryFilter;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
       this._categoryFilter = params.get('category');
       if (this._categoryFilter) {
@@ -81,7 +83,6 @@ export class ProductListComponent implements OnInit {
       this.route.data.subscribe(data => {
         const resolvedProducts: Product[] = data['resolvedProducts'];
         this.onProductsRetrieved(resolvedProducts);
-        this.listData = new MatTableDataSource(this.filteredProducts);
       });
     })
   }
@@ -113,6 +114,13 @@ export class ProductListComponent implements OnInit {
 
   private setActiveCategory(category: string) {
     this._categoryFilters.map(c => c.isActive = c.type === category ? true : false);
+  }
+
+  onNameFilter(): void {
+    if (this._nameFilter.trim() === '') {
+      return;
+    }
+    this._filteredProducts = this._filteredProducts.filter(product => product.productName.toLocaleLowerCase().indexOf(this._nameFilter.toLocaleLowerCase()) != -1);
   }
 
   onDelete(productID: number): void {

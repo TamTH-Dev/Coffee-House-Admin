@@ -1,69 +1,88 @@
-<div class="product-list">
-  <div class="search-form">
-    <mat-form-field color="accent">
-      <input
-        (keyup.enter)="onNameFilter()"
-        matInput
-        placeholder="Search..."
-        [(ngModel)]="nameFilter"
-        autocomplete="off"
-      />
-    </mat-form-field>
-    <button id="search-btn" mat-mini-fab (click)="onNameFilter()">
-      <fa-icon [icon]="faSearch"></fa-icon>
-    </button>
-  </div>
-  <div class="filter-btn-container">
-    <button
-      type="button"
-      mat-button
-      *ngFor="let cf of categoryFilters"
-      class="filter-btn"
-      [ngClass]="{ active: cf.isActive }"
-      [routerLink]=""
-      [queryParams]="{ category: cf.type }"
-    >
-      {{ cf.type }}
-      <span class="filter-btn-underline"></span>
-    </button>
-  </div>
-  <div class="product-item" *ngFor="let product of filteredProducts">
-    <span class="product-info product-img">
-      <img
-        src="../../../../../assets/cat_winter_fluffy_snow_99366_1920x1080.jpg"
-        alt="product's image"
-      />
-    </span>
-    <span class="product-info product-name">
-      <span [routerLink]="[product.productID]" queryParamsHandling="preserve">
-        {{ product.productName }}
-      </span>
-    </span>
-    <span class="product-info category">{{ product.category }}</span>
-    <span class="product-info quantity">
-      {{ product.quantity }} left product{{ product.quantity > 1 ? "s" : "" }}
-    </span>
-    <span class="product-info price">{{ product.price }} $</span>
-    <span class="product-info edit-btn" *ngIf="product.status != false">
-      <button
-        mat-raised-button
-        color="primary"
-        type="button"
-        [routerLink]="[product.productID, 'edit']"
-        queryParamsHandling="preserve"
-      >
-        Edit
-      </button>
-    </span>
-    <span class="product-info delete-btn" *ngIf="product.status != false">
-      <button
-        mat-raised-button
-        color="warn"
-        type="button"
-        (click)="onDelete(product.productID)"
-      >
-        Delete
-      </button>
-    </span>
-  </div>
+<div class="mat-elevation-z8 products-list-container">
+  <!-- <mat-paginator
+    #paginator
+    [length]="dataSource?.data.length"
+    [pageIndex]="0"
+    [pageSize]="10"
+    [pageSizeOptions]="[10, 25, 50]"
+  >
+  </mat-paginator> -->
+
+  <table
+    [dataSource]="listData"
+    mat-table
+    class="products-list"
+    aria-label="Products"
+  >
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef>Product's Image</th>
+      <td mat-cell *matCellDef="let product" class="col img-container">
+        <img
+          src="../../../../../assets/cat_winter_fluffy_snow_99366_1920x1080.jpg"
+          alt="Product's Image"
+        />
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="productName">
+      <th mat-header-cell *matHeaderCellDef>Product's Name</th>
+      <td mat-cell *matCellDef="let product" class="col product-name">
+        <span [routerLink]="[product.productID]" queryParamsHandling="preserve">
+          {{ product.productName }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef>Quantity</th>
+      <td mat-cell *matCellDef="let product" class="col quantity">
+        {{ product.quantity }} product{{ product.quantity > 1 ? "s" : "" }} left
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Price</th>
+      <td mat-cell *matCellDef="let product" class="col price">
+        {{ product.price }} $
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let product" class="col actions">
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          [routerLink]="[product.productID, 'edit']"
+          queryParamsHandling="preserve"
+          *ngIf="product.status != false"
+        >
+          Edit
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          type="button"
+          (click)="onDelete(product.productID)"
+          *ngIf="product.status != false"
+        >
+          Delete
+        </button>
+        <mat-chip-list
+          *ngIf="product.status == false"
+          aria-label="Fish selection"
+        >
+          <mat-chip>Deleted</mat-chip>
+        </mat-chip-list>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      class="row"
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+    ></tr>
+  </table>
 </div>

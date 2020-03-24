@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   templateUrl: './product-detail.component.html',
@@ -17,6 +18,7 @@ export class ProductDetailComponent implements OnInit {
     private productService: ProductService,
     private router: Router,
     private route: ActivatedRoute,
+    private toastr: ToastrService
   ) { }
 
   get isSuccess(): boolean {
@@ -62,6 +64,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private onDeleteSuccess(): void {
+    setTimeout(() => this.toastr.success('Deleted Successfully!', 'Product Deleting'), 1500);
     this.router.navigate(['/products'], {
       queryParamsHandling: 'preserve'
     });
@@ -81,6 +84,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private onRestoreSuccess(): void {
+    setTimeout(() => this.toastr.success('Restored Successfully!', 'Product Restoring'), 1500);
     this.router.navigate(['/products'], {
       queryParamsHandling: 'preserve'
     });
