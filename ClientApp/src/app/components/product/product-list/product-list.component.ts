@@ -1,27 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
 
 import { Product, CategoryFilter, Category } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
-import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
-  listData: MatTableDataSource<any>;
-  displayedColumns: string[] = ['image', 'productName', 'quantity', 'price', 'actions'];
+export class ProductListComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  listData: MatTableDataSource<Product>;
+  displayedColumns: string[] = ['image', 'productName', 'category', 'quantity', 'price', 'actions'];
 
   showLoadingIndicator: boolean = true;
-  private _isSuccess: boolean;
-  private products: Product[] = [];
-  private _nameFilter: string = '';
-  private _categoryFilter: string = 'All';
-  private _filteredProducts: Product[] = [];
-  private _categoryFilters: CategoryFilter[] = [
+  faPlus = faPlus;
+  faTimes = faTimes;
+  _filteredName: string;
+  filteredProducts: Product[];
+  categoryFilters: CategoryFilter[] = [
     { type: 'All', isActive: true },
     { type: Category.MilkTea, isActive: false },
     { type: Category.Coffee, isActive: false },
@@ -34,73 +38,36 @@ export class ProductListComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
-  set nameFilter(value: string) {
-    this._nameFilter = value;
+  set filteredName(value: string) {
+    this._filteredName = value;
   }
 
-  get nameFilter(): string {
-    return this._nameFilter;
-  }
-
-  get categoryFilters(): CategoryFilter[] {
-    return this._categoryFilters;
-  }
-
-  get filteredProducts(): Product[] {
-    return this._filteredProducts;
-  }
-
-  get isSuccess(): boolean {
-    return this._isSuccess;
-  }
-
-  private setProducts(products: Product[]): void {
-    this.products = products;
-  }
-
-  private setFilteredProducts(products: Product[]) {
-    this._filteredProducts = products;
-  }
-
-  private setCategoryFilter(categoryFilter: string): void {
-    this._categoryFilter = categoryFilter;
-  }
-
-  private getCategoryFilter(): string {
-    return this._categoryFilter;
+  get filteredName(): string {
+    return this._filteredName;
   }
 
   ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
-      this._categoryFilter = params.get('category');
-      if (this._categoryFilter) {
-        this.setCategoryFilter(this._categoryFilter);
-      } else {
-        this.setCategoryFilter('All');
-      }
+      const category = params.get('category');
+
       this.route.data.subscribe(data => {
         const resolvedProducts: Product[] = data['resolvedProducts'];
-        this.onProductsRetrieved(resolvedProducts);
+        this.onProductsRetrieved(resolvedProducts, category);
         this.listData = new MatTableDataSource(this.filteredProducts);
+        this.listData.sort = this.sort;
+        this.listData.paginator = this.paginator;
       });
     })
   }
 
-  private onProductsRetrieved(products: Product[]): void {
-    this.setProducts(products);
-
-    if (this.products) {
-      this._isSuccess = true;
-      this.onCategoryFilter();
-    } else {
-      this._isSuccess = false;
-    }
+  ngAfterViewInit() {
+    this.listData.paginator = this.paginator;
   }
 
-  private onCategoryFilter(): void {
-    this.setActiveCategory(this.getCategoryFilter());
-    this.setFilteredProducts(this.getProductByCategory(this.products, this.getActiveCategory()));
-    this._nameFilter = '';
+  private onProductsRetrieved(products: Product[], category: string): void {
+    this.setActiveCategory(category);
+    this.filteredProducts = this.getProductByCategory(products, this.getActiveCategory());
+    this.filteredName = '';
   }
 
   private getProductByCategory(products: Product[], activeCategory: string): Product[] {
@@ -108,11 +75,21 @@ export class ProductListComponent implements OnInit {
   }
 
   private getActiveCategory(): string {
-    return this._categoryFilters.filter(category => category.isActive === true)[0].type;
+    return this.categoryFilters.filter(category => category.isActive === true)[0].type;
   }
 
   private setActiveCategory(category: string) {
-    this._categoryFilters.map(c => c.isActive = c.type === category ? true : false);
+    if (!category) {
+      category = 'All';
+    }
+    this.categoryFilters.map(c => c.isActive = c.type === category ? true : false);
+  }
+
+  onNameFilter(): void {
+    this.listData.filter = this._filteredName;
+    this.listData.filterPredicate = (data, filter: string) => {
+      return data.productName.trim().toLocaleLowerCase().indexOf(filter.trim().toLocaleLowerCase()) != -1;
+    }
   }
 
   onDelete(productID: number): void {
@@ -129,7 +106,7 @@ export class ProductListComponent implements OnInit {
   }
 
   private getProduct(productID: number): Product {
-    return this.products.filter(product => product.productID === productID)[0];
+    return this.filteredProducts.filter(product => product.productID === productID)[0];
   }
 
   private onDeleteSuccess(productID: number): void {
@@ -138,9 +115,14 @@ export class ProductListComponent implements OnInit {
   }
 
   private deleteProduct(productID: number): void {
-    this.products.map(product => {
+    this.filteredProducts.map(product => {
       if (product.productID === productID) product.status = false
     });
+  }
+
+  onNameFilterClear(): void {
+    this._filteredName = '';
+    this.onNameFilter();
   }
 
 }
