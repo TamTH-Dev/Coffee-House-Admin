@@ -1,0 +1,75 @@
+<div class="login-form-container">
+  <form
+    (submit)="onSubmit(form)"
+    #form="ngForm"
+    novalidate
+    autocomplete="off"
+    class="login-form"
+  >
+    <div class="login-form-header">
+      <div class="login-form-icon">
+        <fa-icon [icon]="faUser"></fa-icon>
+      </div>
+      <h3>Login Form</h3>
+    </div>
+    <div class="form-item">
+      <mat-form-field class="form-field">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          required
+          [(ngModel)]="userAccount.userName"
+          name="userName"
+          #email="ngModel"
+          placeholder="Username..."
+        />
+      </mat-form-field>
+      <span class="invalid-feedback">
+        <span *ngIf="(email.touched || email.dirty) && email.errors?.required">
+          Email is required.
+        </span>
+      </span>
+    </div>
+    <div class="form-item">
+      <mat-form-field class="form-field">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          required
+          minlength="8"
+          type="password"
+          [(ngModel)]="userAccount.password"
+          name="password"
+          #password="ngModel"
+          placeholder="Password..."
+        />
+      </mat-form-field>
+      <span class="invalid-feedback">
+        <span
+          *ngIf="
+            (password.touched || password.dirty) && password.errors?.required
+          "
+        >
+          Password is required.
+        </span>
+        <span
+          *ngIf="
+            (password.touched || password.dirty) && password.errors?.minlength
+          "
+        >
+          Password must be at least eight characters.
+        </span>
+      </span>
+    </div>
+    <div class="login-btn">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Login
+      </button>
+    </div>
+  </form>
+</div>

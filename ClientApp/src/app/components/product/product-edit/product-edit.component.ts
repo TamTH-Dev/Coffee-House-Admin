@@ -46,7 +46,7 @@ export class ProductEditComponent implements OnInit {
 
   onSave(form: NgForm): void {
     if (form.valid) {
-      this.product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, productID: this.product.productID, status: true };
+      this.product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, productID: this.product.productID, status: true, imgPath: 'Hello' };
       this.productService.updateProduct(this.product)
         .subscribe({
           next: () => {
@@ -77,12 +77,6 @@ export class ProductEditComponent implements OnInit {
     this.router.navigate(['/products'], {
       queryParamsHandling: "preserve"
     });
-  }
-
-  private resetForm(form: NgForm): void {
-    if (form != null) {
-      form.resetForm();
-    }
   }
 
   private onDeleteSuccess(): void {

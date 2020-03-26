@@ -1,6 +1,7 @@
 export interface Product {
   productID?: number;
   productName: string;
+  imgPath: string;
   category: Category;
   description: string;
   quantity: number;

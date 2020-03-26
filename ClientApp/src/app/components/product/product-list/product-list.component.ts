@@ -65,20 +65,20 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   private onProductsRetrieved(products: Product[], category: string): void {
-    this.setActiveCategory(category);
-    this.filteredProducts = this.getProductByCategory(products, this.getActiveCategory());
+    this.setFilteredCategory(category);
+    this.filteredProducts = this.getProductsByCategory(products, this.getFilteredCategory());
     this.filteredName = '';
   }
 
-  private getProductByCategory(products: Product[], activeCategory: string): Product[] {
+  private getProductsByCategory(products: Product[], activeCategory: string): Product[] {
     return activeCategory === 'All' ? products : products.filter(product => product.category === activeCategory);
   }
 
-  private getActiveCategory(): string {
+  private getFilteredCategory(): string {
     return this.categoryFilters.filter(category => category.isActive === true)[0].type;
   }
 
-  private setActiveCategory(category: string) {
+  private setFilteredCategory(category: string) {
     if (!category) {
       category = 'All';
     }

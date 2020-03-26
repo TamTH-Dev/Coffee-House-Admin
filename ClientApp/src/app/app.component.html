@@ -40,8 +40,11 @@
     </ul>
   </div>
   <div class="main-content">
-    <div class="main-content-header">
+    <div class="main-content-header" *ngIf="userDetails">
       <ul class="navbar-nav">
+        <nav class="item">
+          <span>Hello, {{ userDetails.fullName }}</span>
+        </nav>
         <nav class="item">
           <button mat-button>
             <mat-icon matBadge="15" matBadgeColor="warn">
@@ -55,7 +58,7 @@
           </button>
           <mat-menu #beforeMenu="matMenu" xPosition="before">
             <button mat-menu-item>Settings</button>
-            <button mat-menu-item>Logout</button>
+            <button (click)="onLogout()" mat-menu-item>Logout</button>
           </mat-menu>
         </nav>
       </ul>

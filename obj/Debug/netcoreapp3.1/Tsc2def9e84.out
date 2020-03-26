@@ -6,6 +6,10 @@ D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\home\home.comp
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\home\home.component.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\page-not-found\page-not-found.component.js
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\page-not-found\page-not-found.component.js.map
+D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\models\user.model.js
+D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\models\user.model.js.map
+D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\user\login.component.js
+D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\user\login.component.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\shared\material.module.js
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\shared\material.module.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\models\product.model.js
@@ -28,6 +32,8 @@ D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\product\produc
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\product\product.module.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\app-routing.module.js
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\app-routing.module.js.map
+D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\user\user.module.js
+D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\user\user.module.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\app.component.js
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\app.component.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\app.module.js
@@ -40,7 +46,5 @@ D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\polyfills.js
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\polyfills.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\test.js
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\test.js.map
-D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\product\product-list-backup\product-list-backup.component.js
-D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\product\product-list-backup\product-list-backup.component.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\environments\environment.prod.js
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\environments\environment.prod.js.map

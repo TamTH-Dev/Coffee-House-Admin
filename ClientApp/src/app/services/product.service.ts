@@ -2,21 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
-import { Product, Category } from '../models/product.model';
-import { tap, catchError, delay } from 'rxjs/operators';
+import { Product } from '../models/product.model';
+import { catchError, delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private productUrl = 'http://localhost:8000/api/Product';
+  private productUrl = 'http://localhost:8000/api/Products';
 
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.productUrl)
       .pipe(
-        // delay(1500),
+        delay(1500),
         catchError(err => {
           return throwError(err);
         })

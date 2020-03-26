@@ -1,4 +1,21 @@
-<div class="mat-elevation-z8 products-list-container">
+<div *ngIf="!listData">
+  <div class="error-page-container">
+    <h1 class="error-title">404 Error</h1>
+    <div class="error">Oops! This Page Cound Not Be Found</div>
+    <div class="error-detail">
+      Sorry But The Page You Are Looking For Does Not Exist Or Have Been Removed
+    </div>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [routerLink]="['/home']"
+    >
+      Go to Home Page
+    </button>
+  </div>
+</div>
+<div class="mat-elevation-z8 products-list-container" *ngIf="listData">
   <div class="product-list-header">
     <div class="add-product">
       <button id="search-btn" mat-raised-button color="primary">
@@ -14,13 +31,17 @@
         autocomplete="off"
         class="search-input"
       />
-      <button class="close-btn" (click)="onNameFilterClear()">
+      <button
+        class="close-btn"
+        (click)="onNameFilterClear()"
+        *ngIf="filteredName.trim() != ''"
+      >
         <fa-icon [icon]="faTimes"></fa-icon>
       </button>
     </div>
   </div>
 
-  <div class="filter-btn-container" *ngIf="listData != null">
+  <div class="filter-btn-container">
     <button
       type="button"
       mat-button
@@ -40,7 +61,6 @@
     mat-table
     class="products-list"
     aria-label="Products"
-    *ngIf="listData != null"
     matSort
   >
     <ng-container matColumnDef="image">
@@ -140,7 +160,7 @@
     [pageSizeOptions]="[5, 10, 20]"
     showFirstLastButtons
     class="paginator"
-    [ngClass]="{ hide: listData.data && listData.data.length != 0 }"
+    [ngClass]="{ hide: listData.data.length == 0 }"
   >
   </mat-paginator>
 </div>

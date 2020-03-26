@@ -19,6 +19,17 @@ export class ProductCreateComponent implements OnInit {
     Category.Pudding,
   ];
 
+  // uploadImg = null;
+  // imgUrl: string = null;
+  // onFileSelected(event) {
+  //   this.uploadImg = event.target.files.item(0);
+  //   let reader = new FileReader();
+  //   reader.onload = (event: any) => {
+  //     this.imgUrl = event.target.result;
+  //   }
+  //   reader.readAsDataURL(this.uploadImg);
+  // }
+
   constructor(
     private productService: ProductService,
     private router: Router,
@@ -43,7 +54,7 @@ export class ProductCreateComponent implements OnInit {
 
   onCreate(form: NgForm): void {
     if (form.valid) {
-      this._product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, status: true };
+      this._product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, status: true, imgPath: 'Hello' };
       this.productService.createProduct(this.product)
         .subscribe({
           next: () => {
@@ -69,9 +80,10 @@ export class ProductCreateComponent implements OnInit {
     }
     this._product = {
       productID: null,
-      productName: '',
+      productName: null,
+      imgPath: null,
       category: null,
-      description: '',
+      description: null,
       quantity: null,
       price: null
     }
