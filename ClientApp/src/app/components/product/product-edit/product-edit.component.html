@@ -1,7 +1,7 @@
-<div class="failed-loading" *ngIf="result == false">
+<div class="failed-loading" *ngIf="!product">
   <span>Product Not Found</span>
 </div>
-<div class="form-container" *ngIf="result != false">
+<div class="form-container" *ngIf="product">
   <div class="form-header">
     <div class="form-icon">
       <fa-icon [icon]="faEdit"></fa-icon>
@@ -24,6 +24,7 @@
     #form="ngForm"
     autocomplete="off"
     (submit)="onSave(form)"
+    (change)="isDirty = true"
   >
     <div class="form-item">
       <mat-form-field class="form-field">
@@ -65,6 +66,7 @@
           #category="ngModel"
           [(ngModel)]="product.category"
           name="category"
+          (mouseup)="isDirty = true"
         >
           <mat-option *ngFor="let ct of categories" [value]="ct">
             {{ ct }}

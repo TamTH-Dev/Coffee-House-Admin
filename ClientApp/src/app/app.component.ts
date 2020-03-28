@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, Event } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, Event, ActivatedRoute } from '@angular/router';
 import { faHome, faListUl, faFolderPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -12,15 +12,18 @@ export class AppComponent implements OnInit {
   faListUl = faListUl;
   faFolderPlus = faFolderPlus;
   isLogged: boolean = false;
+  isErrorPage: boolean = false;
   showLoadingIndicator: boolean = true;
   userDetails: any;
 
-  constructor(
-    private router: Router
-  ) {
+  constructor(private router: Router) {
     this.router.events.subscribe((routerEvent: Event) => {
       if (routerEvent instanceof NavigationStart) {
         this.showLoadingIndicator = true;
+        const paths = location.pathname.split('/');
+        if (paths[1] != 'products' && paths[1] != 'home') {
+          this.isErrorPage = true;
+        }
       }
       if (
         routerEvent instanceof NavigationEnd ||

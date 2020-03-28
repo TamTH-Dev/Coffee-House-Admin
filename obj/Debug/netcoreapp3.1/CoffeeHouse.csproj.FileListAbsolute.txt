@@ -169,4 +169,3 @@ D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\CoffeeHouse.RazorTargetAssemblyI
 D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\CoffeeHouse.csproj.CopyComplete
 D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\CoffeeHouse.dll
 D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\CoffeeHouse.pdb
-D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\CoffeeHouse.csprojAssemblyReference.cache

@@ -12,7 +12,7 @@ import { Product, Category } from 'src/app/models/product.model';
 })
 export class ProductEditComponent implements OnInit {
   faEdit = faEdit;
-  result: boolean;
+  isDirty: boolean = false;
   product: Product;
   categories: Category[] = [
     Category.MilkTea,
@@ -36,21 +36,16 @@ export class ProductEditComponent implements OnInit {
 
   private onProductRetrieved(product: Product): void {
     this.product = product;
-
-    if (!this.product) {
-      this.result = false;
-    } else {
-      this.result = true;
-    }
   }
 
   onSave(form: NgForm): void {
     if (form.valid) {
-      this.product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, productID: this.product.productID, status: true, imgPath: '' };
+      this.product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, productID: this.product.productID, status: true };
       this.productService.updateProduct(this.product)
         .subscribe({
           next: () => {
             this.onSaveSuccess();
+            this.isDirty = false;
           },
           error: err => {
             console.log(err);
@@ -60,16 +55,19 @@ export class ProductEditComponent implements OnInit {
   }
 
   onDelete(): void {
-    const deletedProduct = { ...this.product, status: false };
-    this.productService.updateProduct(deletedProduct)
-      .subscribe({
-        next: () => {
-          this.onDeleteSuccess();
-        },
-        error: err => {
-          console.log(err);
-        }
-      });
+    const doesDelete = confirm('Are you sure you want to delete this product?');
+    if (doesDelete) {
+      const deletedProduct = { ...this.product, status: false };
+      this.productService.updateProduct(deletedProduct)
+        .subscribe({
+          next: () => {
+            this.onDeleteSuccess();
+          },
+          error: err => {
+            console.log(err);
+          }
+        });
+    }
   }
 
   private onSaveSuccess(): void {

@@ -11,6 +11,7 @@
     #form="ngForm"
     autocomplete="off"
     (submit)="onCreate(form)"
+    (change)="isDirty = true"
   >
     <div class="form-item">
       <mat-form-field class="form-field">
@@ -52,6 +53,7 @@
           #category="ngModel"
           [(ngModel)]="product.category"
           name="category"
+          (mouseup)="isDirty = true"
         >
           <mat-option *ngFor="let ct of categories" [value]="ct">
             {{ ct }}

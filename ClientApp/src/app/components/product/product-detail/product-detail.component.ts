@@ -12,7 +12,6 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductDetailComponent implements OnInit {
   faInfoCircle = faInfoCircle;
-  isSuccess: boolean;
   product: Product;
 
   constructor(
@@ -31,25 +30,22 @@ export class ProductDetailComponent implements OnInit {
 
   private onProductRetrieved(product: Product): void {
     this.product = product;
-
-    if (!this.product) {
-      this.isSuccess = false;
-    } else {
-      this.isSuccess = true;
-    }
   }
 
   onDelete(): void {
-    const deletedProduct = { ...this.product, status: false };
-    this.productService.updateProduct(deletedProduct)
-      .subscribe({
-        next: () => {
-          this.onDeleteSuccess();
-        },
-        error: err => {
-          console.log(err);
-        }
-      });
+    const doesDelete = confirm('Are you sure you want to delete this product?');
+    if (doesDelete) {
+      const deletedProduct = { ...this.product, status: false };
+      this.productService.updateProduct(deletedProduct)
+        .subscribe({
+          next: () => {
+            this.onDeleteSuccess();
+          },
+          error: err => {
+            console.log(err);
+          }
+        });
+    }
   }
 
   private onDeleteSuccess(): void {
@@ -60,16 +56,19 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onRestore(): void {
-    const restoredProduct = { ...this.product, status: true };
-    this.productService.updateProduct(restoredProduct)
-      .subscribe({
-        next: () => {
-          this.onRestoreSuccess();
-        },
-        error: err => {
-          console.log(err);
-        }
-      });
+    const doesRestore = confirm('Are you sure you want to restore this product?');
+    if (doesRestore) {
+      const restoredProduct = { ...this.product, status: true };
+      this.productService.updateProduct(restoredProduct)
+        .subscribe({
+          next: () => {
+            this.onRestoreSuccess();
+          },
+          error: err => {
+            console.log(err);
+          }
+        });
+    }
   }
 
   private onRestoreSuccess(): void {

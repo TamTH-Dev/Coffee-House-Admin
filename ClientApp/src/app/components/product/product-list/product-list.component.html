@@ -148,7 +148,7 @@
     [pageSizeOptions]="[5, 10, 20]"
     showFirstLastButtons
     class="paginator"
-    [ngClass]="{ hide: listData.data.length == 0 }"
+    [ngClass]="{ hide: listData?.data.length == 0 }"
   >
   </mat-paginator>
 </div>

@@ -31,6 +31,11 @@ const APP_ROUTES = [
   },
   {
     path: '**',
+    redirectTo: 'error',
+    pathMatch: 'full'
+  },
+  {
+    path: 'error',
     component: PageNotFoundComponent
   }
 ];

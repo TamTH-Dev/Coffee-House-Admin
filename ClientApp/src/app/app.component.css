@@ -66,15 +66,15 @@ mat-divider {
 
 .sidebar-link {
   display: block;
-  width: 80%;
+  width: 85%;
   height: 100%;
   margin: 0 auto;
   border-radius: 3px;
   box-sizing: border-box;
-  padding-left: 3.2rem;
+  padding: 0 0 0 2.8rem;
   position: relative;
   line-height: 50px;
-  font-size: 1.125rem;
+  font-size: 1.025rem;
   color: #fff;
   text-decoration: none;
   transition: 250ms all ease-in-out;
@@ -109,4 +109,8 @@ mat-divider {
 .main-content.logged {
   width: 80%;
   padding-bottom: 60px;
+}
+
+.main-content.error {
+  width: 100%;
 }

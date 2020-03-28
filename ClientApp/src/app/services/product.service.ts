@@ -17,9 +17,7 @@ export class ProductService {
     return this.http.get<Product[]>(this.productUrl)
       .pipe(
         delay(1500),
-        catchError(err => {
-          return throwError(err);
-        })
+        catchError(this.handleError)
       );
   }
 
@@ -27,9 +25,7 @@ export class ProductService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Product>(this.productUrl, product, { headers })
       .pipe(
-        catchError(err => {
-          return throwError(err);
-        })
+        catchError(this.handleError)
       );
   }
 
@@ -38,9 +34,7 @@ export class ProductService {
     const url = `${this.productUrl}/${product.productID}`;
     return this.http.put<Product>(url, product, { headers })
       .pipe(
-        catchError(err => {
-          return throwError(err);
-        })
+        catchError(this.handleError)
       );
   }
 
@@ -48,10 +42,12 @@ export class ProductService {
     const url = `${this.productUrl}/${id}`;
     return this.http.get<Product>(url)
       .pipe(
-        catchError(err => {
-          return throwError(err);
-        })
+        catchError(this.handleError)
       );
+  }
+
+  private handleError(err) {
+    return throwError(err);
   }
 
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild, AfterViewInit, NgZone } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { Product, CategoryFilter, Category } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
+import { BootController } from 'src/boot-controller';
 
 @Component({
   selector: 'app-product-list',
@@ -21,6 +22,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['image', 'productName', 'category', 'quantity', 'price', 'actions'];
 
   showLoadingIndicator: boolean = true;
+  isValid: boolean = true;
   faPlus = faPlus;
   faTimes = faTimes;
   _filteredName: string;
@@ -35,7 +37,9 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router,
+    private ngZone: NgZone
   ) { }
 
   set filteredName(value: string) {
@@ -46,9 +50,22 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     return this._filteredName;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
       const category = params.get('category');
+      if (params.keys.length > 0 && params.keys[0] != 'category') {
+        this.isValid = false;
+      } else if (params.keys.length > 0 && params.keys[0] == 'category') {
+        if (!this.categoryFilters.some(c => c.type == category)) {
+          this.isValid = false;
+        }
+      }
+
+      if (!this.isValid) {
+        this.ngZone.runOutsideAngular(() => BootController.getbootControl().restart());
+        this.router.navigateByUrl('/error');
+        return;
+      }
 
       this.route.data.subscribe(data => {
         const resolvedProducts: Product[] = data['resolvedProducts'];
@@ -61,7 +78,10 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.listData.paginator = this.paginator;
+    if (this.isValid) {
+      this.listData.sort = this.sort;
+      this.listData.paginator = this.paginator;
+    }
   }
 
   private onProductsRetrieved(products: Product[], category: string): void {
@@ -93,16 +113,19 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   onDelete(productID: number): void {
-    const deletedProduct = { ...this.getProduct(productID), status: false };
-    this.productService.updateProduct(deletedProduct)
-      .subscribe({
-        next: () => {
-          this.onDeleteSuccess(productID);
-        },
-        error: err => {
-          console.log(err);
-        }
-      });
+    const doesDelete = confirm('Are you sure you want to delete this product?');
+    if (doesDelete) {
+      const deletedProduct = { ...this.getProduct(productID), status: false };
+      this.productService.updateProduct(deletedProduct)
+        .subscribe({
+          next: () => {
+            this.onDeleteSuccess(productID);
+          },
+          error: err => {
+            console.log(err);
+          }
+        });
+    }
   }
 
   private getProduct(productID: number): Product {

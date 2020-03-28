@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="sidebar" *ngIf="isLogged">
+  <div class="sidebar" *ngIf="isLogged && !isErrorPage">
     <span class="color-overplay"></span>
     <div class="sidebar-header">
       <img src="../assets/logo.png" alt="Sidebar's Header Logo" />
@@ -21,27 +21,29 @@
           class="sidebar-link"
           [routerLink]="['/products']"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
         >
           <fa-icon class="sidebar-link-icon" [icon]="faListUl"></fa-icon>
-          Product List
+          Product Management
         </a>
       </li>
       <li class="sidebar-item">
         <a
           class="sidebar-link"
-          [routerLink]="['/products', 'add']"
+          [routerLink]="['/categories']"
           routerLinkActive="active"
           queryParamsHandling="preserve"
         >
           <fa-icon class="sidebar-link-icon" [icon]="faFolderPlus"></fa-icon>
-          Add Product
+          Category Management
         </a>
       </li>
     </ul>
   </div>
-  <div class="main-content" [ngClass]="{ logged: isLogged }">
-    <app-navbar></app-navbar>
+  <div
+    class="main-content"
+    [ngClass]="{ logged: isLogged, error: isErrorPage }"
+  >
+    <app-navbar *ngIf="isLogged && !isErrorPage"></app-navbar>
     <div class="indicator-container" *ngIf="showLoadingIndicator">
       <div class="lds-roller">
         <div></div>

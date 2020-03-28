@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeHouse.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200327111637_InitialCreate")]
+    [Migration("20200328171000_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,19 @@ namespace CoffeeHouse.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CoffeeHouse.Models.CategoryModel", b =>
+                {
+                    b.Property<string>("Category")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Category");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("CoffeeHouse.Models.ProductModel", b =>
                 {
                     b.Property<int>("ProductID")
@@ -30,6 +43,7 @@ namespace CoffeeHouse.Migrations
 
                     b.Property<string>("Category")
                         .IsRequired()
+                        .HasColumnName("Category")
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("Description")
@@ -53,6 +67,8 @@ namespace CoffeeHouse.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("ProductID");
+
+                    b.HasIndex("Category");
 
                     b.ToTable("Products");
                 });
@@ -271,6 +287,15 @@ namespace CoffeeHouse.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.HasDiscriminator().HasValue("User");
+                });
+
+            modelBuilder.Entity("CoffeeHouse.Models.ProductModel", b =>
+                {
+                    b.HasOne("CoffeeHouse.Models.CategoryModel", "CategoryModel")
+                        .WithMany("Products")
+                        .HasForeignKey("Category")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -13,6 +13,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductCreateComponent implements OnInit {
   faFolderPlus = faFolderPlus;
   product: Product;
+  isDirty: boolean = false;
   categories: Category[] = [
     Category.MilkTea,
     Category.Coffee,
@@ -42,11 +43,12 @@ export class ProductCreateComponent implements OnInit {
 
   onCreate(form: NgForm): void {
     if (form.valid) {
-      this.product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, status: true, imgPath: 'Hello' };
+      this.product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, status: true };
       this.productService.createProduct(this.product)
         .subscribe({
           next: () => {
             this.onCreateSuccess();
+            this.isDirty = false;
           },
           error: err => {
             console.log(err);
