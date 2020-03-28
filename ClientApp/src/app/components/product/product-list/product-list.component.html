@@ -1,24 +1,12 @@
-<div *ngIf="!listData">
-  <div class="error-page-container">
-    <h1 class="error-title">404 Error</h1>
-    <div class="error">Oops! This Page Cound Not Be Found</div>
-    <div class="error-detail">
-      Sorry But The Page You Are Looking For Does Not Exist Or Have Been Removed
-    </div>
-    <button
-      mat-raised-button
-      color="primary"
-      type="button"
-      [routerLink]="['/home']"
-    >
-      Go to Home Page
-    </button>
-  </div>
-</div>
 <div class="mat-elevation-z8 products-list-container" *ngIf="listData">
   <div class="product-list-header">
     <div class="add-product">
-      <button id="search-btn" mat-raised-button color="primary">
+      <button
+        id="search-btn"
+        [routerLink]="['add']"
+        mat-raised-button
+        color="primary"
+      >
         <fa-icon [icon]="faPlus"></fa-icon>Add New Product
       </button>
     </div>

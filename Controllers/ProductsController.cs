@@ -20,14 +20,14 @@ namespace CoffeeHouse.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductModel>>> GetProducts()
         {
             return await _context.Products.ToListAsync();
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<ProductModel>> GetProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
 
@@ -41,7 +41,7 @@ namespace CoffeeHouse.Controllers
 
         // PUT: api/Products/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        public async Task<IActionResult> PutProduct(int id, ProductModel product)
         {
             if (id != product.ProductID)
             {
@@ -71,7 +71,7 @@ namespace CoffeeHouse.Controllers
 
         // POST: api/Products
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<ProductModel>> PostProduct(ProductModel product)
         {
             _context.Products.Add(product);
             await _context.SaveChangesAsync();

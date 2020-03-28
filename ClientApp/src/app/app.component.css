@@ -6,14 +6,28 @@
 }
 
 .sidebar {
-  background: rgba(63, 81, 181, 0.8);
   position: fixed;
   top: 0;
   left: 0;
   width: 20%;
-  height: 100%;
+  height: 100vh;
   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56),
     0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  background: url(../assets/mountains_lake_tops_top_view_119133_1920x1080.jpg)
+    no-repeat;
+  z-index: 1;
+}
+
+.color-overplay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(63, 81, 181, 0.9);
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
 .sidebar-header {
@@ -85,23 +99,14 @@ mat-divider {
 }
 
 .main-content {
-  width: 80%;
+  width: 100%;
   min-height: 100vh;
-  padding: 10px 0 60px 0;
   box-sizing: border-box;
   background-color: #eee;
   position: relative;
 }
 
-.main-content-header {
-  display: flex;
-  justify-content: flex-end;
-  box-sizing: border-box;
-  margin-bottom: 30px;
-  padding-right: 20px;
-}
-
-.navbar-nav {
-  display: flex;
-  padding-left: 10px;
+.main-content.logged {
+  width: 80%;
+  padding-bottom: 60px;
 }

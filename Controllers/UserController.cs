@@ -10,27 +10,26 @@ using System.Security.Claims;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Options;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoffeeHouse.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase {
-        private readonly ApplicationContext _context;
         private UserManager<User> _userManager;
-        private SignInManager<User> _signinManager;
+
         private readonly ApplicationSettings _appSettings;
 
-        public UserController(ApplicationContext context, UserManager<User> userManager, SignInManager<User> signinManager, IOptions<ApplicationSettings> appSettings) {
-            _context = context;
+        public UserController(UserManager<User> userManager, IOptions<ApplicationSettings> appSettings) {
             _userManager = userManager;
-            _signinManager = signinManager;
             _appSettings = appSettings.Value;
         }
 
-        //// POST: api/User/Register
+        // POST: api/User/Register
         [HttpPost]
         [Route("Register")]
-        public async Task<ActionResult> PostUser(UserModel model) {
+        public async Task<ActionResult<User>> PostUser(UserModel model) {
             var user = new User() {
                 UserName = model.UserName,
                 Email = model.Email,
@@ -53,7 +52,7 @@ namespace CoffeeHouse.Controllers {
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password)) {
                 var tokenDescriptor = new SecurityTokenDescriptor {
                     Subject = new ClaimsIdentity(new Claim[] {
-                        new Claim("UserID", user.Id.ToString())
+                        new Claim("UserID", user.Id.ToString()),
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
@@ -66,5 +65,20 @@ namespace CoffeeHouse.Controllers {
                 return BadRequest(new { message = "Username or Password is incorrect" });
             }
         }
+
+        // GET: api/User/Profile
+        [HttpGet]
+        [Authorize]
+        [Route("Profile")]
+        public async Task<Object> GetUserProfile() {
+            string userID = User.Claims.First(c => c.Type == "UserID").Value;
+            var user = await _userManager.FindByIdAsync(userID);
+            return new {
+                user.FullName,
+                user.Email,
+                user.UserName
+            };
+        }
+
     }
 }

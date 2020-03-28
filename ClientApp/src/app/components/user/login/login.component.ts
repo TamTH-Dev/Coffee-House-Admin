@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -6,6 +6,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 import { UserAccount } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
+import { BootController } from 'src/boot-controller';
 
 @Component({
   templateUrl: './login.component.html',
@@ -18,14 +19,11 @@ export class LoginComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private ngZone: NgZone
   ) { }
 
   ngOnInit(): void {
-    if (localStorage.getItem('token') != null) {
-      this.router.navigateByUrl('home');
-      return;
-    }
     this.resetForm();
   }
 
@@ -43,6 +41,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(form.value).subscribe({
       next: (res: any) => {
         localStorage.setItem('token', res.token);
+        this.ngZone.runOutsideAngular(() => BootController.getbootControl().restart());
         this.router.navigateByUrl('/home');
       },
       error: err => {

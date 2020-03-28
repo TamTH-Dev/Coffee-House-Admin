@@ -1,5 +1,6 @@
 <div class="container">
-  <div class="sidebar">
+  <div class="sidebar" *ngIf="isLogged">
+    <span class="color-overplay"></span>
     <div class="sidebar-header">
       <img src="../assets/logo.png" alt="Sidebar's Header Logo" />
     </div>
@@ -39,39 +40,19 @@
       </li>
     </ul>
   </div>
-  <div class="main-content">
-    <div class="main-content-header" *ngIf="userDetails">
-      <ul class="navbar-nav">
-        <nav class="item">
-          <span>Hello, {{ userDetails.fullName }}</span>
-        </nav>
-        <nav class="item">
-          <button mat-button>
-            <mat-icon matBadge="15" matBadgeColor="warn">
-              <fa-icon [icon]="faBell"></fa-icon>
-            </mat-icon>
-          </button>
-        </nav>
-        <nav class="item">
-          <button mat-button [matMenuTriggerFor]="beforeMenu">
-            <mat-icon><fa-icon [icon]="faUser"></fa-icon></mat-icon>
-          </button>
-          <mat-menu #beforeMenu="matMenu" xPosition="before">
-            <button mat-menu-item>Settings</button>
-            <button (click)="onLogout()" mat-menu-item>Logout</button>
-          </mat-menu>
-        </nav>
-      </ul>
-    </div>
-    <div class="lds-roller" *ngIf="showLoadingIndicator">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+  <div class="main-content" [ngClass]="{ logged: isLogged }">
+    <app-navbar></app-navbar>
+    <div class="indicator-container" *ngIf="showLoadingIndicator">
+      <div class="lds-roller">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
     <router-outlet></router-outlet>
   </div>

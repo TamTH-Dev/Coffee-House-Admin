@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
+
 import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  private _faInfoCircle = faInfoCircle;
-  private _isSuccess: boolean;
-  private _product: Product;
+  faInfoCircle = faInfoCircle;
+  isSuccess: boolean;
+  product: Product;
 
   constructor(
     private productService: ProductService,
@@ -20,18 +21,6 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private toastr: ToastrService
   ) { }
-
-  get isSuccess(): boolean {
-    return this._isSuccess;
-  }
-
-  get product(): Product {
-    return this._product;
-  }
-
-  get faInfoCircle() {
-    return this._faInfoCircle;
-  }
 
   ngOnInit(): void {
     this.route.data.subscribe(data => {
@@ -41,12 +30,12 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private onProductRetrieved(product: Product): void {
-    this._product = product;
+    this.product = product;
 
     if (!this.product) {
-      this._isSuccess = false;
+      this.isSuccess = false;
     } else {
-      this._isSuccess = true;
+      this.isSuccess = true;
     }
   }
 

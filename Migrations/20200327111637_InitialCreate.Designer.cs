@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeHouse.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200326142734_InitialCreate")]
+    [Migration("20200327111637_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace CoffeeHouse.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CoffeeHouse.Models.Product", b =>
+            modelBuilder.Entity("CoffeeHouse.Models.ProductModel", b =>
                 {
                     b.Property<int>("ProductID")
                         .ValueGeneratedOnAdd()
@@ -37,8 +37,7 @@ namespace CoffeeHouse.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ImgPath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");

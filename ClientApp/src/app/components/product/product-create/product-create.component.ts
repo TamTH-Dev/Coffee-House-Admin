@@ -11,9 +11,9 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product-create.component.html'
 })
 export class ProductCreateComponent implements OnInit {
-  private _faFolderPlus = faFolderPlus;
-  private _product: Product;
-  private _categories: Category[] = [
+  faFolderPlus = faFolderPlus;
+  product: Product;
+  categories: Category[] = [
     Category.MilkTea,
     Category.Coffee,
     Category.Pudding,
@@ -36,25 +36,13 @@ export class ProductCreateComponent implements OnInit {
     private toastr: ToastrService
   ) { }
 
-  get categories(): Category[] {
-    return this._categories;
-  }
-
-  get product(): Product {
-    return this._product;
-  }
-
-  get faFolderPlus() {
-    return this._faFolderPlus;
-  }
-
   ngOnInit(): void {
     this.resetForm();
   }
 
   onCreate(form: NgForm): void {
     if (form.valid) {
-      this._product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, status: true, imgPath: 'Hello' };
+      this.product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, status: true, imgPath: 'Hello' };
       this.productService.createProduct(this.product)
         .subscribe({
           next: () => {
@@ -78,7 +66,7 @@ export class ProductCreateComponent implements OnInit {
     if (form != null) {
       form.resetForm();
     }
-    this._product = {
+    this.product = {
       productID: null,
       productName: null,
       imgPath: null,

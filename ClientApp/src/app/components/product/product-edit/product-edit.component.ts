@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import { ProductService } from 'src/app/services/product.service';
 import { Product, Category } from 'src/app/models/product.model';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   templateUrl: './product-edit.component.html'
@@ -34,7 +34,7 @@ export class ProductEditComponent implements OnInit {
     });
   }
 
-  onProductRetrieved(product: Product): void {
+  private onProductRetrieved(product: Product): void {
     this.product = product;
 
     if (!this.product) {
@@ -46,11 +46,11 @@ export class ProductEditComponent implements OnInit {
 
   onSave(form: NgForm): void {
     if (form.valid) {
-      this.product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, productID: this.product.productID, status: true, imgPath: 'Hello' };
+      this.product = { ...form.value, quantity: +form.value.quantity, price: +form.value.price, productID: this.product.productID, status: true, imgPath: '' };
       this.productService.updateProduct(this.product)
         .subscribe({
           next: () => {
-            this.onSaveSuccess(form);
+            this.onSaveSuccess();
           },
           error: err => {
             console.log(err);
@@ -72,7 +72,7 @@ export class ProductEditComponent implements OnInit {
       });
   }
 
-  private onSaveSuccess(form: NgForm): void {
+  private onSaveSuccess(): void {
     setTimeout(() => this.toastr.success('Updated Successfully!', 'Product Updating'), 1500);
     this.router.navigate(['/products'], {
       queryParamsHandling: "preserve"

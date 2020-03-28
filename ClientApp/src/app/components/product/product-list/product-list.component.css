@@ -142,8 +142,8 @@
   display: flex;
   height: 64px;
   align-items: center;
-  width: 75%;
   justify-content: space-between;
+  width: 65%;
 }
 
 .add-product button {
@@ -156,11 +156,11 @@
 
 .search-form {
   height: 40px;
-  width: 70%;
-  postition: relative;
+  width: 60%;
 }
 
 .search-form .search-input {
+  margin: 0;
   background: #ddd;
   height: 100%;
   border-radius: 3px;

@@ -1,26 +1,23 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-
-import { Product } from '../models/product.model';
-import { catchError, delay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:8000/api';
+  private userUrl = 'http://localhost:8000/api/User';
 
   constructor(private http: HttpClient) { }
 
   login(formData: Object): Observable<any> {
-    const loginUrl = `${this.baseUrl}/User/Login`;
+    const loginUrl = `${this.userUrl}/Login`;
     return this.http.post<Object>(loginUrl, formData);
   }
 
-  getUserProfile(): Observable<Object> {
-    const profileUrl = `${this.baseUrl}/UserProfile`;
-    return this.http.get<Object>(profileUrl);
+  getUserProfile(): Observable<any> {
+    const profileUrl = `${this.userUrl}/Profile`;
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    return this.http.get<Object>(profileUrl, { headers });
   }
 }

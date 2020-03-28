@@ -1,0 +1,29 @@
+<div class="navbar" *ngIf="userDetails">
+  <ul class="navbar-nav">
+    <nav class="item hello-user">
+      <span>Hello, {{ userDetails.fullName }}!</span>
+    </nav>
+    <nav class="item">
+      <button mat-button>
+        <mat-icon matBadge="15" matBadgeColor="warn">
+          <fa-icon [icon]="faBell"></fa-icon>
+        </mat-icon>
+      </button>
+    </nav>
+    <nav class="item">
+      <button mat-button [matMenuTriggerFor]="beforeMenu">
+        <mat-icon><fa-icon [icon]="faUser"></fa-icon></mat-icon>
+      </button>
+      <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <button mat-menu-item>
+          <fa-icon [icon]="faCog" class="menu-icon"></fa-icon>
+          Settings
+        </button>
+        <button (click)="onLogout()" mat-menu-item>
+          <fa-icon [icon]="faSignOutAlt" class="menu-icon"></fa-icon>
+          Logout
+        </button>
+      </mat-menu>
+    </nav>
+  </ul>
+</div>
