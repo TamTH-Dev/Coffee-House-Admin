@@ -14,11 +14,7 @@ export class ProductEditComponent implements OnInit {
   faEdit = faEdit;
   isDirty: boolean = false;
   product: Product;
-  categories: Category[] = [
-    Category.MilkTea,
-    Category.Coffee,
-    Category.Pudding,
-  ];
+  categories: Category[];
 
   constructor(
     private productService: ProductService,
@@ -28,6 +24,7 @@ export class ProductEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.categories = this.route.snapshot.data['resolvedCategories'];
     this.route.data.subscribe(data => {
       const resolvedProduct: Product = data['resolvedProduct'];
       this.onProductRetrieved(resolvedProduct);
@@ -71,14 +68,14 @@ export class ProductEditComponent implements OnInit {
   }
 
   private onSaveSuccess(): void {
-    setTimeout(() => this.toastr.success('Updated Successfully!', 'Product Updating'), 1500);
+    setTimeout(() => this.toastr.success('Updated Successfully!', 'Product Updating'), 1000);
     this.router.navigate(['/products'], {
       queryParamsHandling: "preserve"
     });
   }
 
   private onDeleteSuccess(): void {
-    setTimeout(() => this.toastr.success('Deleted Successfully!', 'Product Deleting'), 1500);
+    setTimeout(() => this.toastr.success('Deleted Successfully!', 'Product Deleting'), 1000);
     this.router.navigate(['/products'], {
       queryParamsHandling: "preserve"
     });

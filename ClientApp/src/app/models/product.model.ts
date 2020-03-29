@@ -2,20 +2,17 @@ export interface Product {
   productID?: number;
   productName: string;
   imgPath?: string;
-  category: Category;
+  categoryID?: number;
+  category?: string;
   description: string;
   quantity: number;
   price: number;
   status?: boolean;
 }
 
-export interface CategoryFilter {
-  type: string,
-  isActive: boolean
-}
-
-export enum Category {
-  MilkTea = 'Milk Tea',
-  Coffee = 'Coffee',
-  Pudding = 'Pudding'
+export interface Category {
+  categoryID?: number,
+  category: string,
+  status?: boolean,
+  isFiltered?: boolean
 }

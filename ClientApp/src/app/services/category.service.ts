@@ -1,46 +1,46 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
-import { Product } from '../models/product.model';
+import { Category } from '../models/product.model';
 import { catchError, delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
-  private productUrl = 'http://localhost:8000/api/Products';
+export class CategoryService {
+  private categoryUrl = 'http://localhost:8000/api/Categories';
 
   constructor(private http: HttpClient) { }
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.productUrl)
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.categoryUrl)
       .pipe(
-        delay(1000),
         catchError(this.handleError)
       );
   }
 
-  createProduct(product: Product): Observable<Product> {
+  createCategory(category: Category): Observable<Category> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Product>(this.productUrl, product, { headers })
+    return this.http.post<Category>(this.categoryUrl, category, { headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateProduct(product: Product): Observable<Product> {
+  updateCategory(category: Category): Observable<Category> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.productUrl}/${product.productID}`;
-    return this.http.put<Product>(url, product, { headers })
+    const url = `${this.categoryUrl}/${category.categoryID}`;
+    return this.http.put<Category>(url, category, { headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  getProduct(id: number): Observable<Product> {
-    const url = `${this.productUrl}/${id}`;
-    return this.http.get<Product>(url)
+  getCategory(id: number): Observable<Category> {
+    const url = `${this.categoryUrl}/${id}`;
+    return this.http.get<Category>(url)
       .pipe(
         catchError(this.handleError)
       );

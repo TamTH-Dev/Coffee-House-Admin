@@ -1,0 +1,39 @@
+<div class="sidebar">
+  <span class="color-overplay"></span>
+  <div class="sidebar-header">
+    <img src="../assets/logo.png" alt="Sidebar's Header Logo" />
+  </div>
+  <mat-divider></mat-divider>
+  <ul class="sidebar-menu">
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link"
+        [routerLink]="['/home']"
+        routerLinkActive="active"
+      >
+        <fa-icon class="sidebar-link-icon" [icon]="faHome"></fa-icon>
+        Home
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link"
+        [routerLink]="['/products']"
+        routerLinkActive="active"
+      >
+        <fa-icon class="sidebar-link-icon" [icon]="faListUl"></fa-icon>
+        Product Management
+      </a>
+    </li>
+    <li class="sidebar-item">
+      <a
+        class="sidebar-link"
+        [routerLink]="['/categories']"
+        routerLinkActive="active"
+      >
+        <fa-icon class="sidebar-link-icon" [icon]="faTable"></fa-icon>
+        Category Management
+      </a>
+    </li>
+  </ul>
+</div>

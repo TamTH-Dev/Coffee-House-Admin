@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 
-import { Product, CategoryFilter, Category } from 'src/app/models/product.model';
+import { Product, Category } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
 import { BootController } from 'src/boot-controller';
 
@@ -27,12 +27,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   faTimes = faTimes;
   _filteredName: string;
   filteredProducts: Product[];
-  categoryFilters: CategoryFilter[] = [
-    { type: 'All', isActive: true },
-    { type: Category.MilkTea, isActive: false },
-    { type: Category.Coffee, isActive: false },
-    { type: Category.Pudding, isActive: false },
-  ];
+  categoryFilters: Category[];
 
   constructor(
     private productService: ProductService,
@@ -51,12 +46,15 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.categoryFilters = this.route.snapshot.data['resolvedCategories'];
+    this.categoryFilters.unshift({ category: 'All', isFiltered: true });
+
     this.route.queryParamMap.subscribe(params => {
       const category = params.get('category');
       if (params.keys.length > 0 && params.keys[0] != 'category') {
         this.isValid = false;
       } else if (params.keys.length > 0 && params.keys[0] == 'category') {
-        if (!this.categoryFilters.some(c => c.type == category)) {
+        if (!this.categoryFilters.some(c => c.category == category)) {
           this.isValid = false;
         }
       }
@@ -69,7 +67,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
       this.route.data.subscribe(data => {
         const resolvedProducts: Product[] = data['resolvedProducts'];
-        this.onProductsRetrieved(resolvedProducts, category);
+        this.onProductsRetrieved(this.getProductsWithResolvedCategories(resolvedProducts), category);
         this.listData = new MatTableDataSource(this.filteredProducts);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -90,19 +88,30 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     this.filteredName = '';
   }
 
-  private getProductsByCategory(products: Product[], activeCategory: string): Product[] {
-    return activeCategory === 'All' ? products : products.filter(product => product.category === activeCategory);
+  private getProductsByCategory(products: Product[], filteredCategory: string): Product[] {
+    return filteredCategory === 'All' ? products : products.filter(product => product.category == filteredCategory);
   }
 
   private getFilteredCategory(): string {
-    return this.categoryFilters.filter(category => category.isActive === true)[0].type;
+    return this.categoryFilters.filter(category => category.isFiltered === true)[0].category;
   }
 
   private setFilteredCategory(category: string) {
     if (!category) {
       category = 'All';
     }
-    this.categoryFilters.map(c => c.isActive = c.type === category ? true : false);
+    this.categoryFilters.map(c => c.isFiltered = c.category === category ? true : false);
+  }
+
+  private getProductsWithResolvedCategories(products: Product[]): Product[] {
+    for (let p of products) {
+      for (let c of this.categoryFilters) {
+        if (p.categoryID == c.categoryID) {
+          p.category = c.category;
+        }
+      }
+    }
+    return products;
   }
 
   onNameFilter(): void {

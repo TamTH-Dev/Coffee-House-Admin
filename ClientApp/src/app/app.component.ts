@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, Event, ActivatedRoute } from '@angular/router';
-import { faHome, faListUl, faFolderPlus } from '@fortawesome/free-solid-svg-icons';
+import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, Event } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +7,6 @@ import { faHome, faListUl, faFolderPlus } from '@fortawesome/free-solid-svg-icon
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  faHome = faHome;
-  faListUl = faListUl;
-  faFolderPlus = faFolderPlus;
   isLogged: boolean = false;
   isErrorPage: boolean = false;
   showLoadingIndicator: boolean = true;
@@ -21,7 +17,7 @@ export class AppComponent implements OnInit {
       if (routerEvent instanceof NavigationStart) {
         this.showLoadingIndicator = true;
         const paths = location.pathname.split('/');
-        if (paths[1] != 'products' && paths[1] != 'home') {
+        if (paths[1] != 'products' && paths[1] != 'home' && paths[1] != 'categories') {
           this.isErrorPage = true;
         }
       }

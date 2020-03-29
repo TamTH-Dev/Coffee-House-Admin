@@ -35,11 +35,11 @@
       mat-button
       *ngFor="let cf of categoryFilters"
       class="filter-btn"
-      [ngClass]="{ active: cf.isActive }"
+      [ngClass]="{ active: cf.isFiltered }"
       [routerLink]=""
-      [queryParams]="{ category: cf.type }"
+      [queryParams]="{ category: cf.category }"
     >
-      {{ cf.type }}
+      {{ cf.category }}
       <span class="filter-btn-underline"></span>
     </button>
   </div>

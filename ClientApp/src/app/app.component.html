@@ -1,44 +1,5 @@
 <div class="container">
-  <div class="sidebar" *ngIf="isLogged && !isErrorPage">
-    <span class="color-overplay"></span>
-    <div class="sidebar-header">
-      <img src="../assets/logo.png" alt="Sidebar's Header Logo" />
-    </div>
-    <mat-divider></mat-divider>
-    <ul class="sidebar-menu">
-      <li class="sidebar-item">
-        <a
-          class="sidebar-link"
-          [routerLink]="['/home']"
-          routerLinkActive="active"
-        >
-          <fa-icon class="sidebar-link-icon" [icon]="faHome"></fa-icon>
-          Home
-        </a>
-      </li>
-      <li class="sidebar-item">
-        <a
-          class="sidebar-link"
-          [routerLink]="['/products']"
-          routerLinkActive="active"
-        >
-          <fa-icon class="sidebar-link-icon" [icon]="faListUl"></fa-icon>
-          Product Management
-        </a>
-      </li>
-      <li class="sidebar-item">
-        <a
-          class="sidebar-link"
-          [routerLink]="['/categories']"
-          routerLinkActive="active"
-          queryParamsHandling="preserve"
-        >
-          <fa-icon class="sidebar-link-icon" [icon]="faFolderPlus"></fa-icon>
-          Category Management
-        </a>
-      </li>
-    </ul>
-  </div>
+  <app-sidebar *ngIf="isLogged && !isErrorPage"></app-sidebar>
   <div
     class="main-content"
     [ngClass]="{ logged: isLogged, error: isErrorPage }"

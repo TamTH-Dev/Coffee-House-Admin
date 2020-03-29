@@ -21,13 +21,19 @@ namespace CoffeeHouse.Migrations
 
             modelBuilder.Entity("CoffeeHouse.Models.CategoryModel", b =>
                 {
+                    b.Property<int>("CategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<string>("Category")
+                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.HasKey("Category");
+                    b.HasKey("CategoryID");
 
                     b.ToTable("Categories");
                 });
@@ -39,10 +45,8 @@ namespace CoffeeHouse.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnName("Category")
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -66,7 +70,7 @@ namespace CoffeeHouse.Migrations
 
                     b.HasKey("ProductID");
 
-                    b.HasIndex("Category");
+                    b.HasIndex("CategoryID");
 
                     b.ToTable("Products");
                 });
@@ -290,8 +294,8 @@ namespace CoffeeHouse.Migrations
             modelBuilder.Entity("CoffeeHouse.Models.ProductModel", b =>
                 {
                     b.HasOne("CoffeeHouse.Models.CategoryModel", "CategoryModel")
-                        .WithMany("Products")
-                        .HasForeignKey("Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

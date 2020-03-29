@@ -30,6 +30,12 @@ const APP_ROUTES = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'categories',
+    loadChildren: () => import('./components/category/category.module')
+      .then(m => m.CategoryModule),
+    canActivate: [AuthGuard],
+  },
+  {
     path: '**',
     redirectTo: 'error',
     pathMatch: 'full'

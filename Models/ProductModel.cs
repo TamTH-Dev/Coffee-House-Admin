@@ -12,9 +12,8 @@ namespace CoffeeHouse.Models {
         [Column(TypeName = "varchar(255)")]
         public string ImgPath { get; set; }
         [Required]
-        [Column("Category", TypeName = "varchar(255)")]
-        public string Category { get; set; }
-        [ForeignKey("Category")]
+        public int CategoryID { get; set; }
+        [ForeignKey("CategoryID")]
         public CategoryModel CategoryModel { get; set; }
         [Required]
         [Column(TypeName = "text")]

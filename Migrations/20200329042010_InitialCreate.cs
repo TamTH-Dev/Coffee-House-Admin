@@ -38,12 +38,14 @@ namespace CoffeeHouse.Migrations
                 name: "Categories",
                 columns: table => new
                 {
+                    CategoryID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Category = table.Column<string>(type: "varchar(255)", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Category);
+                    table.PrimaryKey("PK_Categories", x => x.CategoryID);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,7 +56,7 @@ namespace CoffeeHouse.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(255)", nullable: false),
                     ImgPath = table.Column<string>(type: "varchar(255)", nullable: true),
-                    Category = table.Column<string>(type: "varchar(255)", nullable: false),
+                    CategoryID = table.Column<int>(nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     Price = table.Column<double>(nullable: false),
@@ -64,10 +66,10 @@ namespace CoffeeHouse.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductID);
                     table.ForeignKey(
-                        name: "FK_Products_Categories_Category",
-                        column: x => x.Category,
+                        name: "FK_Products_Categories_CategoryID",
+                        column: x => x.CategoryID,
                         principalTable: "Categories",
-                        principalColumn: "Category",
+                        principalColumn: "CategoryID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -84,9 +86,9 @@ namespace CoffeeHouse.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_Category",
+                name: "IX_Products_CategoryID",
                 table: "Products",
-                column: "Category");
+                column: "CategoryID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

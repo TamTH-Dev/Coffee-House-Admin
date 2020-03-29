@@ -3,18 +3,20 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import { CategoryRoutingModule } from './category-routing.module';
 import { MaterialModule } from '../../shared/material.module';
-import { LoginComponent } from './login/login.component';
+import { CategoryComponent } from './category.component';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    CategoryComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     FontAwesomeModule,
     MaterialModule,
+    CategoryRoutingModule
   ]
 })
-export class UserModule { }
+export class CategoryModule { }

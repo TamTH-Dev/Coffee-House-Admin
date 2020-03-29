@@ -1,0 +1,32 @@
+<div class="categories-container" *ngIf="categories">
+  <div class="categories-list">
+    <div class="category-item" *ngFor="let cf of categories; let index">
+      <div class="no">
+        {{ index }}
+      </div>
+      <div class="category-type">{{ cf.category }}</div>
+      <div class="edit-btn">
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          queryParamsHandling="preserve"
+          *ngIf="cf.status != false"
+        >
+          Edit
+        </button>
+      </div>
+      <div class="delete-btn">
+        <button
+          mat-raised-button
+          color="warn"
+          type="button"
+          queryParamsHandling="preserve"
+          *ngIf="cf.status != false"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

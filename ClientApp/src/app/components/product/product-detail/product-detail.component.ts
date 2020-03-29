@@ -49,7 +49,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private onDeleteSuccess(): void {
-    setTimeout(() => this.toastr.success('Deleted Successfully!', 'Product Deleting'), 1500);
+    setTimeout(() => this.toastr.success('Deleted Successfully!', 'Product Deleting'), 1000);
     this.router.navigate(['/products'], {
       queryParamsHandling: 'preserve'
     });
@@ -72,7 +72,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private onRestoreSuccess(): void {
-    setTimeout(() => this.toastr.success('Restored Successfully!', 'Product Restoring'), 1500);
+    setTimeout(() => this.toastr.success('Restored Successfully!', 'Product Restoring'), 1000);
     this.router.navigate(['/products'], {
       queryParamsHandling: 'preserve'
     });

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,11 +14,7 @@ export class ProductCreateComponent implements OnInit {
   faFolderPlus = faFolderPlus;
   product: Product;
   isDirty: boolean = false;
-  categories: Category[] = [
-    Category.MilkTea,
-    Category.Coffee,
-    Category.Pudding,
-  ];
+  categories: Category[];
 
   // uploadImg = null;
   // imgUrl: string = null;
@@ -34,7 +30,8 @@ export class ProductCreateComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -58,7 +55,7 @@ export class ProductCreateComponent implements OnInit {
   }
 
   private onCreateSuccess(): void {
-    setTimeout(() => this.toastr.success('Created Successfully!', 'Product Creating'), 1500);
+    setTimeout(() => this.toastr.success('Created Successfully!', 'Product Creating'), 1000);
     this.router.navigate(['/products'], {
       queryParamsHandling: "preserve"
     });
@@ -68,11 +65,10 @@ export class ProductCreateComponent implements OnInit {
     if (form != null) {
       form.resetForm();
     }
+    this.categories = this.route.snapshot.data['resolvedCategories'];
     this.product = {
-      productID: null,
       productName: null,
-      imgPath: null,
-      category: null,
+      categoryID: null,
       description: null,
       quantity: null,
       price: null
