@@ -169,7 +169,7 @@
   width: 100%;
 }
 
-.search-form .close-btn {
+.search-form .clear-btn {
   position: absolute;
   right: 1rem;
   width: 30px;
@@ -187,7 +187,7 @@
   cursor: pointer;
 }
 
-.search-form .close-btn:hover {
+.search-form .clear-btn:hover {
   background: #ccc;
 }
 

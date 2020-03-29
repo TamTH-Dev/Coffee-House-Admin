@@ -1,11 +1,38 @@
-<div class="categories-container" *ngIf="categories">
+<div class="category-page-header">
+  <button
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="doesAdd = true"
+  >
+    <fa-icon [icon]="faPlus"></fa-icon>
+    Add New Category
+  </button>
+  <div class="adding-form" [ngClass]="{ active: doesAdd }">
+    <input
+      [(ngModel)]="newCategory"
+      matInput
+      placeholder="Input new category..."
+      autocomplete="off"
+      (keyup.enter)="onCreate()"
+    />
+    <button
+      *ngIf="newCategory.trim() != ''"
+      class="clear-btn"
+      (click)="onClear()"
+    >
+      <fa-icon [icon]="faTimes"></fa-icon>
+    </button>
+  </div>
+</div>
+<div (click)="doesAdd = false" class="categories-container" *ngIf="categories">
   <div class="categories-list">
-    <div class="category-item" *ngFor="let cf of categories; let index">
-      <div class="no">
-        {{ index }}
+    <div class="category-item" *ngFor="let cf of categories; let i = index">
+      <div class="index">
+        {{ i + 1 }}
       </div>
       <div class="category-type">{{ cf.category }}</div>
-      <div class="edit-btn">
+      <div class="action-btn">
         <button
           mat-raised-button
           color="primary"
@@ -15,8 +42,6 @@
         >
           Edit
         </button>
-      </div>
-      <div class="delete-btn">
         <button
           mat-raised-button
           color="warn"

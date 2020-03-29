@@ -1,0 +1,105 @@
+.categories-container {
+  padding: 0 0 50px 0;
+}
+
+.categories-list {
+  width: 75%;
+  margin: 30px auto;
+}
+
+.category-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  background: #fff;
+  height: 60px;
+  border-radius: 3px;
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.index {
+  width: 15%;
+  box-sizing: border-box;
+  padding-left: 2rem;
+  font-size: 1.125rem;
+}
+
+.category-type {
+  width: 60%;
+  font-size: 1.125rem;
+}
+
+.action-btn {
+  width: 25%;
+  justify-content: center;
+}
+
+.action-btn button {
+  margin: 0 10px;
+}
+
+.category-page-header {
+  width: 75%;
+  height: 40px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.category-page-header > button {
+  padding-right: 1rem;
+  height: 100%;
+}
+
+.category-page-header > button > fa-icon {
+  padding-right: 10px;
+}
+
+.category-page-header .adding-form {
+  width: 75%;
+  height: 100%;
+  position: relative;
+  transition: 250ms all ease-in-out;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.category-page-header .adding-form.active {
+  transform: scaleX(1);
+}
+
+.category-page-header .adding-form input {
+  width: 100%;
+  background: #ddd;
+  height: 100%;
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 0 20px;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+}
+
+.category-page-header .adding-form .clear-btn {
+  position: absolute;
+  right: 1rem;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ddd;
+  transition: 250ms all ease-in-out;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.category-page-header .adding-form .clear-btn:hover {
+  background: #ccc;
+}
