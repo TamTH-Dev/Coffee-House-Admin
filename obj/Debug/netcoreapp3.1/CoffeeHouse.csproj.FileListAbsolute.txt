@@ -159,7 +159,6 @@ D:\Projects\CoffeeHouse\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite
 D:\Projects\CoffeeHouse\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Projects\CoffeeHouse\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Projects\CoffeeHouse\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\CoffeeHouse.csprojAssemblyReference.cache
 D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\staticwebassets\CoffeeHouse.StaticWebAssets.Manifest.cache
 D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\staticwebassets\CoffeeHouse.StaticWebAssets.xml
 D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\CoffeeHouse.MvcApplicationPartsAssemblyInfo.cs
@@ -170,3 +169,4 @@ D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\CoffeeHouse.RazorTargetAssemblyI
 D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\CoffeeHouse.csproj.CopyComplete
 D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\CoffeeHouse.dll
 D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\CoffeeHouse.pdb
+D:\Projects\CoffeeHouse\obj\Debug\netcoreapp3.1\CoffeeHouse.csprojAssemblyReference.cache

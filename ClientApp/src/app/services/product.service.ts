@@ -38,6 +38,15 @@ export class ProductService {
       );
   }
 
+  deleteProducts(categoryID: number): Observable<number> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.productUrl}/Delete/${categoryID}`;
+    return this.http.put<number>(url, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   getProduct(id: number): Observable<Product> {
     const url = `${this.productUrl}/${id}`;
     return this.http.get<Product>(url)

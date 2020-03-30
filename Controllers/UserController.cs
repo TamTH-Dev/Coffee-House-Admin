@@ -27,7 +27,7 @@ namespace CoffeeHouse.Controllers {
         // POST: api/User/Register
         [HttpPost]
         [Route("Register")]
-        public async Task<ActionResult<User>> PostUser(UserModel model) {
+        public async Task<ActionResult<User>> Register(UserModel model) {
             var user = new User() {
                 UserName = model.UserName,
                 Email = model.Email,

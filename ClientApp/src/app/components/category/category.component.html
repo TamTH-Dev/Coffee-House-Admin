@@ -1,15 +1,11 @@
 <div class="category-page-header">
-  <button
-    mat-raised-button
-    color="primary"
-    type="button"
-    (click)="doesAdd = true"
-  >
+  <button mat-raised-button color="primary" type="button" (click)="setFocus()">
     <fa-icon [icon]="faPlus"></fa-icon>
     Add New Category
   </button>
   <div class="adding-form" [ngClass]="{ active: doesAdd }">
     <input
+      #newCategoryInput
       [(ngModel)]="newCategory"
       matInput
       placeholder="Input new category..."
@@ -19,26 +15,55 @@
     <button
       *ngIf="newCategory.trim() != ''"
       class="clear-btn"
-      (click)="onClear()"
+      (click)="onCategoryCreatingClear()"
     >
       <fa-icon [icon]="faTimes"></fa-icon>
     </button>
+    <span class="invalid-feedback" *ngIf="!isValidAdding">
+      New Category cannot be blank
+    </span>
   </div>
 </div>
-<div (click)="doesAdd = false" class="categories-container" *ngIf="categories">
+<div
+  (click)="doesAdd = false; isValidAdding = true"
+  class="categories-container"
+  *ngIf="categories"
+>
   <div class="categories-list">
     <div class="category-item" *ngFor="let cf of categories; let i = index">
       <div class="index">
         {{ i + 1 }}
       </div>
-      <div class="category-type">{{ cf.category }}</div>
+      <div class="category-type">
+        {{ cf.category }}
+        <div class="edit-form" [ngClass]="{ active: editStatus[i] }">
+          <input
+            #editCategoryInput
+            [(ngModel)]="cf.category"
+            matInput
+            autocomplete="off"
+            placeholder="Input category..."
+            (keyup.enter)="onEdit(cf, i)"
+          />
+          <button
+            *ngIf="cf.category.trim() != ''"
+            class="clear-btn"
+            (click)="onCategoryEdittingClear(cf.categoryID)"
+          >
+            <fa-icon [icon]="faTimes"></fa-icon>
+          </button>
+          <span class="invalid-feedback" *ngIf="!isValidEditting">
+            Category cannot be blank
+          </span>
+        </div>
+      </div>
       <div class="action-btn">
         <button
           mat-raised-button
           color="primary"
           type="button"
-          queryParamsHandling="preserve"
           *ngIf="cf.status != false"
+          (click)="changeEditStatus(i)"
         >
           Edit
         </button>
@@ -46,10 +71,22 @@
           mat-raised-button
           color="warn"
           type="button"
-          queryParamsHandling="preserve"
           *ngIf="cf.status != false"
+          (click)="onDelete(cf, i)"
         >
           Delete
+        </button>
+        <mat-chip-list *ngIf="cf.status == false" aria-label="Fish selection">
+          <mat-chip>Deleted</mat-chip>
+        </mat-chip-list>
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          *ngIf="cf.status == false"
+          (click)="onRestore(cf, i)"
+        >
+          Restore
         </button>
       </div>
     </div>

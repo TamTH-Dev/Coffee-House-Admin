@@ -6,7 +6,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 
-import { Product, Category } from 'src/app/models/product.model';
+import { Product } from 'src/app/models/product.model';
+import { Category } from 'src/app/models/category.model';
 import { ProductService } from 'src/app/services/product.service';
 import { BootController } from 'src/boot-controller';
 

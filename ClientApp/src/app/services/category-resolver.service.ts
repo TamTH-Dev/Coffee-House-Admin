@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
+import { Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 import { CategoryService } from './category.service';
-import { Category } from '../models/product.model';
+import { Category } from '../models/category.model';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({

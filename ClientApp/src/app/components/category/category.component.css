@@ -13,7 +13,7 @@
   align-items: center;
   margin-bottom: 15px;
   background: #fff;
-  height: 60px;
+  height: 66px;
   border-radius: 3px;
   box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),
     0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
@@ -29,11 +29,70 @@
 .category-type {
   width: 60%;
   font-size: 1.125rem;
+  position: relative;
+}
+
+.category-type .edit-form {
+  width: 80%;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  display: none;
+  transition: 250ms all ease-in-out;
+}
+
+.category-type .edit-form.active {
+  display: block;
+}
+
+.category-type .edit-form input {
+  width: 100%;
+  background: #ddd;
+  height: 100%;
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 0 20px;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+}
+
+.category-type .edit-form .invalid-feedback {
+  color: #f00;
+  position: absolute;
+  bottom: -1.2rem;
+  left: 1rem;
+}
+
+.category-type .edit-form .clear-btn {
+  position: absolute;
+  right: 1rem;
+  width: 24px;
+  height: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ddd;
+  transition: 250ms all ease-in-out;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.category-type .edit-form .clear-btn:hover {
+  background: #ccc;
 }
 
 .action-btn {
   width: 25%;
+  display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .action-btn button {
@@ -80,6 +139,13 @@
   font-size: 1rem;
   border: none;
   outline: none;
+}
+
+.category-page-header .adding-form .invalid-feedback {
+  color: #f00;
+  position: absolute;
+  bottom: -1.2rem;
+  left: 1rem;
 }
 
 .category-page-header .adding-form .clear-btn {

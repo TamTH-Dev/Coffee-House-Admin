@@ -27,7 +27,7 @@ namespace CoffeeHouse.Controllers
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CategoryModel>> GetCategoryModel(int id)
+        public async Task<ActionResult<CategoryModel>> GetCategory(int id)
         {
             var categoryModel = await _context.Categories.FindAsync(id);
 
@@ -41,7 +41,7 @@ namespace CoffeeHouse.Controllers
 
         // PUT: api/Categories/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategoryModel(int id, CategoryModel categoryModel)
+        public async Task<IActionResult> UpdateCategory(int id, CategoryModel categoryModel)
         {
             if (id != categoryModel.CategoryID)
             {
@@ -56,7 +56,7 @@ namespace CoffeeHouse.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryModelExists(id))
+                if (!CategoryExists(id))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace CoffeeHouse.Controllers
 
         // POST: api/Categories
         [HttpPost]
-        public async Task<ActionResult<CategoryModel>> PostCategoryModel(CategoryModel categoryModel)
+        public async Task<ActionResult<CategoryModel>> CreateCategory(CategoryModel categoryModel)
         {
             _context.Categories.Add(categoryModel);
             await _context.SaveChangesAsync();
@@ -79,7 +79,7 @@ namespace CoffeeHouse.Controllers
             return CreatedAtAction("GetCategoryModel", new { id = categoryModel.CategoryID }, categoryModel);
         }
 
-        private bool CategoryModelExists(int id)
+        private bool CategoryExists(int id)
         {
             return _context.Categories.Any(e => e.CategoryID == id);
         }

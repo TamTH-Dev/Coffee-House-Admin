@@ -5,7 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import { ProductService } from 'src/app/services/product.service';
-import { Product, Category } from 'src/app/models/product.model';
+import { Product } from 'src/app/models/product.model';
+import { Category } from 'src/app/models/category.model';
 
 @Component({
   templateUrl: './product-edit.component.html'

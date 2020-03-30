@@ -9,10 +9,3 @@ export interface Product {
   price: number;
   status?: boolean;
 }
-
-export interface Category {
-  categoryID?: number,
-  category: string,
-  status?: boolean,
-  isFiltered?: boolean
-}

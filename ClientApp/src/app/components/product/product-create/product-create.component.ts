@@ -4,7 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 
-import { Product, Category } from 'src/app/models/product.model';
+import { Product } from 'src/app/models/product.model';
+import { Category } from 'src/app/models/category.model';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
