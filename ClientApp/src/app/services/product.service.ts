@@ -21,27 +21,36 @@ export class ProductService {
       );
   }
 
-  createProduct(product: Product): Observable<Product> {
+  createProduct(product: Product): Observable<boolean> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Product>(this.productUrl, product, { headers })
+    return this.http.post<boolean>(this.productUrl, product, { headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateProduct(product: Product): Observable<Product> {
+  updateProduct(product: Product): Observable<boolean> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.productUrl}/${product.productID}`;
-    return this.http.put<Product>(url, product, { headers })
+    return this.http.put<boolean>(url, product, { headers })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  deleteProducts(categoryID: number): Observable<number> {
+  deleteProducts(categoryID: number): Observable<boolean> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.productUrl}/Delete/${categoryID}`;
-    return this.http.put<number>(url, { headers })
+    return this.http.put<boolean>(url, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  restoreProducts(categoryID: number): Observable<boolean> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.productUrl}/Restore/${categoryID}`;
+    return this.http.put<boolean>(url, { headers })
       .pipe(
         catchError(this.handleError)
       );

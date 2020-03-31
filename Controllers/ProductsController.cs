@@ -79,6 +79,20 @@ namespace CoffeeHouse.Controllers {
             return NoContent();
         }
 
+        // PUT: api/Products/Restore/{id}
+        [HttpPut("Restore/{id}")]
+        public async Task<IActionResult> RestoreProducts(int id) {
+            var products = _context.Products.Where(p => p.CategoryID == id).ToList();
+            products.ForEach(p => p.Status = true);
+
+            try {
+                await _context.SaveChangesAsync();
+            } catch (DbUpdateConcurrencyException) {
+                throw;
+            }
+            return NoContent();
+        }
+
         private bool ProductExists(int id) {
             return _context.Products.Any(e => e.ProductID == id);
         }

@@ -133,7 +133,6 @@ export class CategoryComponent implements OnInit {
   }
 
   private onDeleteSuccess(data: Category, index: number) {
-    console.log(data.categoryID);
     this.productService.deleteProducts(data.categoryID)
       .subscribe({
         next: () => {
@@ -147,7 +146,7 @@ export class CategoryComponent implements OnInit {
   }
 
   onRestore(data: Category, index: number): void {
-    const doesRestore = confirm('Are you sure you want to restore this category?');
+    const doesRestore = confirm('Restore this category will also restore all products have this category. Are you sure you want to continue?');
     if (doesRestore) {
       const restoredData = { ...data, status: true };
       this.categoryService.updateCategory(restoredData)
@@ -163,7 +162,15 @@ export class CategoryComponent implements OnInit {
   }
 
   private onRestoreSuccess(data: Category, index: number) {
-    this.categories.splice(index, 1, data);
-    this.toastr.success('Restored Successfully!', 'Category Restoring');
+    this.productService.restoreProducts(data.categoryID)
+      .subscribe({
+        next: () => {
+          this.categories.splice(index, 1, data);
+          this.toastr.success('Restored Successfully!', 'Category Restoring');
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
   }
 }

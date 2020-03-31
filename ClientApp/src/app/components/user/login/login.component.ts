@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(form: NgForm): void {
     this.userService.login(form.value).subscribe({
-      next: (res: any) => {
+      next: res => {
         localStorage.setItem('token', res.token);
         this.ngZone.runOutsideAngular(() => BootController.getbootControl().restart());
         this.router.navigateByUrl('/home');

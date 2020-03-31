@@ -13,7 +13,7 @@
       color="warn"
       type="button"
       (click)="onDelete()"
-      *ngIf="product.status == true"
+      *ngIf="product.status == true && isCategoryActive == true"
     >
       Delete this product
     </button>
@@ -65,7 +65,7 @@
       color="primary"
       type="button"
       [routerLink]="['/products', product.productID, 'edit']"
-      *ngIf="product.status == true"
+      *ngIf="product.status == true && isCategoryActive == true"
       queryParamsHandling="preserve"
     >
       Edit
@@ -74,10 +74,17 @@
       mat-raised-button
       color="primary"
       type="button"
-      *ngIf="product.status == false"
+      *ngIf="product.status == false && isCategoryActive == true"
       (click)="onRestore()"
+      queryParamsHandling="preserve"
     >
       Restore
     </button>
+    <span
+      *ngIf="isCategoryActive == false"
+      class="deleted-category-notification"
+    >
+      Product's Category is deleted
+    </span>
   </div>
 </div>

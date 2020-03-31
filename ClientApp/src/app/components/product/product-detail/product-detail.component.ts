@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { Product } from 'src/app/models/product.model';
 import { ProductService } from 'src/app/services/product.service';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   templateUrl: './product-detail.component.html',
@@ -13,9 +14,11 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductDetailComponent implements OnInit {
   faInfoCircle = faInfoCircle;
   product: Product;
+  isCategoryActive: boolean;
 
   constructor(
     private productService: ProductService,
+    private categoryService: CategoryService,
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService
@@ -30,6 +33,15 @@ export class ProductDetailComponent implements OnInit {
 
   private onProductRetrieved(product: Product): void {
     this.product = product;
+    this.categoryService.getCategory(product.categoryID)
+      .subscribe({
+        next: c => {
+          this.isCategoryActive = c.status
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
   }
 
   onDelete(): void {
