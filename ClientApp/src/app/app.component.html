@@ -5,18 +5,7 @@
     [ngClass]="{ logged: isLogged, error: isErrorPage }"
   >
     <app-navbar *ngIf="isLogged && !isErrorPage"></app-navbar>
-    <div class="indicator-container" *ngIf="showLoadingIndicator">
-      <div class="lds-roller">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
+    <app-spinner *ngIf="doesShowLoadingIndicator"></app-spinner>
     <router-outlet></router-outlet>
   </div>
 </div>

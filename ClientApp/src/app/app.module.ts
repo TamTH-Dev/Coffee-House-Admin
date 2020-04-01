@@ -14,6 +14,7 @@ import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     HomeComponent,
     PageNotFoundComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

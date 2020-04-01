@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private ngZone: NgZone
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.resetForm();

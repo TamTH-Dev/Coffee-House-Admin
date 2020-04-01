@@ -16,6 +16,6 @@ export class PageNotFoundComponent {
 
   onBackToHome(): void {
     this.ngZone.runOutsideAngular(() => BootController.getbootControl().restart());
-    this.router.navigate(['/home']);
+    this.router.navigateByUrl('/home');
   }
 }

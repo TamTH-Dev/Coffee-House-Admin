@@ -28,6 +28,8 @@
 
 .products-list {
   width: 100%;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .row {
@@ -194,6 +196,11 @@
 
 .search-form .clear-btn:hover {
   background: #ccc;
+}
+
+.paginator {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .paginator.hide {

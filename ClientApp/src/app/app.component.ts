@@ -9,15 +9,16 @@ import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationErr
 export class AppComponent implements OnInit {
   isLogged: boolean = false;
   isErrorPage: boolean = false;
-  showLoadingIndicator: boolean = true;
-  userDetails: any;
+  doesShowLoadingIndicator: boolean = true;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router
+  ) {
     this.router.events.subscribe((routerEvent: Event) => {
       if (routerEvent instanceof NavigationStart) {
-        this.showLoadingIndicator = true;
+        this.doesShowLoadingIndicator = true;
         const paths = location.pathname.split('/');
-        if (paths[1] != 'products' && paths[1] != 'home' && paths[1] != 'categories') {
+        if (paths[1] != 'home' && paths[1] != 'products' && paths[1] != 'categories') {
           this.isErrorPage = true;
         }
       }
@@ -26,7 +27,7 @@ export class AppComponent implements OnInit {
         routerEvent instanceof NavigationCancel ||
         routerEvent instanceof NavigationError
       ) {
-        this.showLoadingIndicator = false;
+        this.doesShowLoadingIndicator = false;
       }
     });
   }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { catchError, take, map } from 'rxjs/operators';
 
 import { ProductService } from './product.service';
 import { Product } from '../models/product.model';
-import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +32,11 @@ export class ProductsResolver implements Resolve<Product[]> {
   constructor(private productService: ProductService) { }
 
   resolve(): Observable<Product[]> {
-    return this.productService.getProducts()
-      .pipe(catchError(() => of(null)));
+    return this.productService.getProducts().pipe(
+      take(1),
+      map((products: Product[]) => products),
+      catchError(() => of(null))
+    );
   }
 
 }
