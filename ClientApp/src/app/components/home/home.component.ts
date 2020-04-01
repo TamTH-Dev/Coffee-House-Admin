@@ -12,7 +12,6 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  chart: any;
   products: Product[] = [];
   categories: Category[] = [];
 
@@ -46,24 +45,34 @@ export class HomeComponent implements OnInit {
   }
 
   private buildChart(): void {
-    const data = [];
-    const labels = [];
-    const temp = {};
-    const backgroundColor = [];
+    const data: Category[] = [];
+    const labels: string[] = [];
+    const tmp = {};
 
     this.categories.map(c => {
       labels.push(c.category);
-      temp[c.categoryID] = 0;
-      backgroundColor.push(this.getRandomColor());
+      tmp[c.categoryID] = 0;
     });
 
-    this.products.map(product => temp[product.categoryID] += 1);
+    this.products.map(product => tmp[product.categoryID] += 1);
 
-    for (let key in temp) {
-      data.push(temp[key])
+    for (let key in tmp) {
+      data.push(tmp[key])
     }
 
-    this.chart = new Chart('canvas', {
+    this.buildBarChart(data, labels);
+    this.buildPieChart(data, labels);
+  }
+
+  private buildBarChart(data: Category[], labels: string[]): void {
+    const backgroundColor: string[] = [];
+    this.categories.map(c => {
+      backgroundColor.push('#fff');
+    });
+
+    Chart.defaults.global.defaultFontColor = "#fff";
+    Chart.defaults.scale.gridLines.drawOnChartArea = false;
+    new Chart('bar', {
       type: 'bar',
       data: {
         labels,
@@ -74,24 +83,63 @@ export class HomeComponent implements OnInit {
           barPercentage: 0.5,
         }]
       },
-      options: {
-        legend: {
-          display: false,
-        },
-        scales: {
-          xAxes: [{
-            gridLines: {
-              offsetGridLines: true
-            }
-          }],
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
+      options: this.getBarOptions()
     })
+  }
+
+  private getBarOptions(): object {
+    return {
+      legend: {
+        display: false,
+      },
+      scales: {
+        xAxes: [{
+          gridLines: {
+            drawTicks: false,
+            color: 'rgba(255, 255, 255, 0.4)',
+          },
+          ticks: {
+            padding: 10,
+          }
+        }],
+        yAxes: [{
+          stacked: true,
+          gridLines: {
+            drawTicks: false,
+            color: 'rgba(255, 255, 255, 0.4)',
+          },
+          ticks: {
+            padding: 10,
+            stepSize: 1,
+          }
+        }]
+      }
+    };
+  }
+
+  private buildPieChart(data: Category[], labels: string[]): void {
+    const backgroundColor: string[] = [];
+    this.categories.map(c => {
+      backgroundColor.push(this.getRandomColor());
+    });
+
+    new Chart('pie', {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data,
+          backgroundColor,
+          borderWidth: 1,
+          borderColor: 'rgba(255, 255, 255, 0.4)'
+        }],
+        labels
+      },
+    })
+  }
+
+  private getPieOptions(): object {
+    return {
+    };
   }
 
   private getRandomColor(): string {
@@ -102,6 +150,5 @@ export class HomeComponent implements OnInit {
     }
     return color;
   }
-
 
 }
