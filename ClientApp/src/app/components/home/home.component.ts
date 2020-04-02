@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
   }
 
   private buildChart(): void {
-    const data: Category[] = [];
+    const data: number[] = [];
     const labels: string[] = [];
     const tmp = {};
 
@@ -62,22 +62,20 @@ export class HomeComponent implements OnInit {
 
     this.buildBarChart(data, labels);
     this.buildPieChart(data, labels);
+    this.buildLineChart();
   }
 
-  private buildBarChart(data: Category[], labels: string[]): void {
+  private buildBarChart(data: number[], labels: string[]): void {
     const backgroundColor: string[] = [];
-    this.categories.map(c => {
-      backgroundColor.push('#fff');
-    });
+    this.categories.map(() => backgroundColor.push('#fff'));
 
     Chart.defaults.global.defaultFontColor = "#fff";
-    Chart.defaults.scale.gridLines.drawOnChartArea = false;
     new Chart('bar', {
       type: 'bar',
       data: {
         labels,
         datasets: [{
-          label: 'Category (Product(s))',
+          label: 'Product(s)',
           data,
           backgroundColor,
           barPercentage: 0.5,
@@ -95,6 +93,7 @@ export class HomeComponent implements OnInit {
       scales: {
         xAxes: [{
           gridLines: {
+            drawOnChartArea: false,
             drawTicks: false,
             color: 'rgba(255, 255, 255, 0.4)',
           },
@@ -103,12 +102,13 @@ export class HomeComponent implements OnInit {
           }
         }],
         yAxes: [{
-          stacked: true,
           gridLines: {
-            drawTicks: false,
+            borderDash: [4, 4],
             color: 'rgba(255, 255, 255, 0.4)',
+            zeroLineColor: 'rgba(255, 255, 255, 0.4)'
           },
           ticks: {
+            beginAtZero: true,
             padding: 10,
             stepSize: 1,
           }
@@ -117,11 +117,11 @@ export class HomeComponent implements OnInit {
     };
   }
 
-  private buildPieChart(data: Category[], labels: string[]): void {
+  private buildPieChart(data: number[], labels: string[]): void {
     const backgroundColor: string[] = [];
-    this.categories.map(c => {
-      backgroundColor.push(this.getRandomColor());
-    });
+    this.categories.map(() => backgroundColor.push(this.getRandomColor()));
+    const total = data.reduce((total, value) => total += value);
+    data = data.map(value => value / total * 100);
 
     new Chart('pie', {
       type: 'pie',
@@ -134,12 +134,77 @@ export class HomeComponent implements OnInit {
         }],
         labels
       },
+      options: {
+        tooltips: {
+          callbacks: {
+            label: function (tooltipItem, data) {
+              const index = tooltipItem.index;
+              const label = `${data.labels[index]}: ${data.datasets[0].data[index].toFixed(2)}%`;
+              return label;
+            }
+          }
+        }
+      }
     })
   }
 
-  private getPieOptions(): object {
+  private buildLineChart(): void {
+    Chart.defaults.global.elements.line.tension = 0
+    new Chart('line', {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+          label: 'Sales ($)',
+          data: [45, 68, 70, 40, 55, 92, 75, 86, 67, 52, 48, 60],
+          backgroundColor: 'rgba(255, 0, 0, 0.4)',
+          borderColor: 'rgba(255, 0, 0, 1)',
+          borderWidth: 1
+        }, {
+          label: 'Earnings ($)',
+          data: [21, 34, 35, 20, 20, 50, 43, 56, 40, 30, 24, 37],
+          backgroundColor: 'rgba(0, 0, 255, 0.4)',
+          borderColor: 'rgba(0, 0, 255, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: this.getLineOptions()
+    });
+  }
+
+  private getLineOptions(): object {
     return {
-    };
+      legend: {
+        display: true,
+        position: 'top',
+        labels: {
+          boxWidth: 80,
+          fontColor: '#000'
+        }
+      },
+      scales: {
+        xAxes: [{
+          ticks: {
+            fontColor: "#000",
+          },
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            fontColor: "#000",
+            padding: 10
+          }
+        }]
+      },
+      tooltips: {
+        callbacks: {
+          label: function (tooltipItem, data) {
+            const label = `${data.datasets[0].data[tooltipItem.index]} $`;
+            return label;
+          }
+        }
+      }
+    }
   }
 
   private getRandomColor(): string {
