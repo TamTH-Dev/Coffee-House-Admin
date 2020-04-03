@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoffeeHouse.Models {
-    public class IUser : IdentityUser {
+    public class User : IdentityUser {
         [Column(TypeName = "nvarchar(256)")]
         public string FullName { get; set; }
     }

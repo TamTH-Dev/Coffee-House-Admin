@@ -2,19 +2,20 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoffeeHouse.Models {
+    [Table("Product")]
     public class ProductModel {
         [Key]
         [Required]
         public int ProductID { get; set; }
         [Required]
-        [Column(TypeName = "nvarchar(255)")]
+        [Column(TypeName = "nvarchar(256)")]
         public string ProductName { get; set; }
-        [Column(TypeName = "varchar(255)")]
+        [Column(TypeName = "varchar(256)")]
         public string ImgPath { get; set; }
         [Required]
         public int CategoryID { get; set; }
         [ForeignKey("CategoryID")]
-        public CategoryModel CategoryModel { get; set; }
+        public Category CategoryModel { get; set; }
         [Required]
         [Column(TypeName = "text")]
         public string Description { get; set; }

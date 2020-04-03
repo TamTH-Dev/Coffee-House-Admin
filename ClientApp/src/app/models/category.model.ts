@@ -1,6 +1,6 @@
 export interface Category {
   categoryID?: number,
-  category: string,
+  categoryName: string,
   status?: boolean,
   isFiltered?: boolean
 }

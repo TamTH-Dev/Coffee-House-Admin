@@ -7,7 +7,7 @@ import { catchError, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
-  private userUrl = 'http://localhost:8000/api/User';
+  private userUrl = 'http://localhost:8000/api/Users';
 
   constructor(private http: HttpClient) { }
 

@@ -35,18 +35,18 @@
         {{ i + 1 }}
       </div>
       <div class="category-type">
-        {{ cf.category }}
+        {{ cf.categoryName }}
         <div class="edit-form" [ngClass]="{ active: editStatus[i] }">
           <input
             #editCategoryInput
-            [(ngModel)]="cf.category"
+            [(ngModel)]="cf.categoryName"
             matInput
             autocomplete="off"
             placeholder="Input category's name..."
             (keyup.enter)="onEdit(cf, i)"
           />
           <button
-            *ngIf="cf.category.trim() != ''"
+            *ngIf="cf.categoryName.trim() != ''"
             class="clear-btn"
             (click)="onCategoryEdittingClear(cf.categoryID)"
           >

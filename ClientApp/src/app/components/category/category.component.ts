@@ -46,10 +46,10 @@ export class CategoryComponent implements OnInit {
 
   onCreate(): void {
     if (this.newCategory.trim() != '') {
-      this.categoryService.createCategory({ category: this.newCategory.trim(), status: true })
+      this.categoryService.createCategory({ categoryName: this.newCategory.trim(), status: true })
         .subscribe({
-          next: data => {
-            this.onCreateSuccess(data);
+          next: category => {
+            this.onCreateSuccess(category);
           },
           error: err => {
             console.log(err);
@@ -60,8 +60,8 @@ export class CategoryComponent implements OnInit {
     }
   }
 
-  private onCreateSuccess(data: Category): void {
-    this.categories.push(data);
+  private onCreateSuccess(category: Category): void {
+    this.categories.push(category);
     this.toastr.success('Created Successfully!', 'Category Creating');
     this.newCategory = '';
     this.doesAdd = false;
@@ -69,13 +69,13 @@ export class CategoryComponent implements OnInit {
     this.editStatus.push(false);
   }
 
-  onEdit(data: Category, index: number): void {
-    const edittedData = { ...data, category: data.category.trim() };
-    if (data.category.trim() != '') {
-      this.categoryService.updateCategory(edittedData)
+  onEdit(category: Category, index: number): void {
+    const edittedCategory = { ...category, category: category.categoryName.trim() };
+    if (category.categoryName.trim() != '') {
+      this.categoryService.updateCategory(edittedCategory)
         .subscribe({
           next: () => {
-            this.onEditSuccess(edittedData, index);
+            this.onEditSuccess(edittedCategory, index);
           },
           error: err => {
             console.log(err);
@@ -86,8 +86,8 @@ export class CategoryComponent implements OnInit {
     }
   }
 
-  private onEditSuccess(data: Category, index: number): void {
-    this.categories.splice(index, 1, data);
+  private onEditSuccess(category: Category, index: number): void {
+    this.categories.splice(index, 1, category);
     this.toastr.success('Updated Successfully!', 'Category Editting');
     for (let i = 0; i < this.editStatus.length; i++) {
       this.editStatus[i] = false;
@@ -112,18 +112,18 @@ export class CategoryComponent implements OnInit {
 
   onCategoryEdittingClear(id: number): void {
     this.categories.map(c => {
-      if (c.categoryID == id) c.category = '';
+      if (c.categoryID == id) c.categoryName = '';
     })
   }
 
-  onDelete(data: Category, index: number): void {
+  onDelete(category: Category, index: number): void {
     const doesDelete = confirm('Delete this category will also delete all products have this category. Are you sure you want to continue?');
     if (doesDelete) {
-      const deletedData = { ...data, status: false };
-      this.categoryService.updateCategory(deletedData)
+      const deletedCategory = { ...category, status: false };
+      this.categoryService.updateCategory(deletedCategory)
         .subscribe({
           next: () => {
-            this.onDeleteSuccess(deletedData, index);
+            this.onDeleteSuccess(deletedCategory, index);
           },
           error: err => {
             console.log(err);
@@ -132,11 +132,11 @@ export class CategoryComponent implements OnInit {
     }
   }
 
-  private onDeleteSuccess(data: Category, index: number) {
-    this.productService.deleteProducts(data.categoryID)
+  private onDeleteSuccess(category: Category, index: number) {
+    this.productService.deleteProducts(category.categoryID)
       .subscribe({
         next: () => {
-          this.categories.splice(index, 1, data);
+          this.categories.splice(index, 1, category);
           this.toastr.success('Deleted Successfully!', 'Category Deleting');
         },
         error: err => {
@@ -145,14 +145,14 @@ export class CategoryComponent implements OnInit {
       });
   }
 
-  onRestore(data: Category, index: number): void {
+  onRestore(category: Category, index: number): void {
     const doesRestore = confirm('Restore this category will also restore all products have this category. Are you sure you want to continue?');
     if (doesRestore) {
-      const restoredData = { ...data, status: true };
-      this.categoryService.updateCategory(restoredData)
+      const restoredCategory = { ...category, status: true };
+      this.categoryService.updateCategory(restoredCategory)
         .subscribe({
           next: () => {
-            this.onRestoreSuccess(restoredData, index);
+            this.onRestoreSuccess(restoredCategory, index);
           },
           error: err => {
             console.log(err);
@@ -161,11 +161,11 @@ export class CategoryComponent implements OnInit {
     }
   }
 
-  private onRestoreSuccess(data: Category, index: number) {
-    this.productService.restoreProducts(data.categoryID)
+  private onRestoreSuccess(category: Category, index: number) {
+    this.productService.restoreProducts(category.categoryID)
       .subscribe({
         next: () => {
-          this.categories.splice(index, 1, data);
+          this.categories.splice(index, 1, category);
           this.toastr.success('Restored Successfully!', 'Category Restoring');
         },
         error: err => {

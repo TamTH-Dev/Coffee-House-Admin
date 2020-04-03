@@ -37,9 +37,9 @@
       class="filter-btn"
       [ngClass]="{ active: cf.isFiltered }"
       [routerLink]=""
-      [queryParams]="{ category: cf.category }"
+      [queryParams]="{ category: cf.categoryName }"
     >
-      {{ cf.category }}
+      {{ cf.categoryName }}
       <span class="filter-btn-underline"></span>
     </button>
   </div>

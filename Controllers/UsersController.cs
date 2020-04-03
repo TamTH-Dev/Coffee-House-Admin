@@ -14,21 +14,21 @@ using Microsoft.AspNetCore.Authorization;
 namespace CoffeeHouse.Controllers {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase {
-        private readonly UserManager<IUser> _userManager;
+    public class UsersController : ControllerBase {
+        private readonly UserManager<User> _userManager;
 
         private readonly ApplicationSettings _appSettings;
 
-        public UserController(UserManager<IUser> userManager, IOptions<ApplicationSettings> appSettings) {
+        public UsersController(UserManager<User> userManager, IOptions<ApplicationSettings> appSettings) {
             _userManager = userManager;
             _appSettings = appSettings.Value;
         }
 
-        // POST: api/User/Register
+        // POST: api/Users/Register
         [HttpPost]
         [Route("Register")]
-        public async Task<ActionResult<IUser>> Register(UserModel model) {
-            var user = new IUser() {
+        public async Task<ActionResult<User>> Register(UserModel model) {
+            var user = new User() {
                 UserName = model.UserName,
                 Email = model.Email,
                 FullName = model.FullName
@@ -42,10 +42,10 @@ namespace CoffeeHouse.Controllers {
             }
         }
 
-        // POST: api/User/Login
+        // POST: api/Users/Login
         [HttpPost]
         [Route("Login")]
-        public async Task<ActionResult<IUser>> Login(UserModel model) {
+        public async Task<ActionResult<User>> Login(UserModel model) {
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password)) {
                 var tokenDescriptor = new SecurityTokenDescriptor {
@@ -64,7 +64,7 @@ namespace CoffeeHouse.Controllers {
             }
         }
 
-        // GET: api/User/Profile
+        // GET: api/Users/Profile
         [HttpGet]
         [Authorize]
         [Route("Profile")]

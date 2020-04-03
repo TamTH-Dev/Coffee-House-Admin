@@ -48,14 +48,14 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.categoryFilters = this.route.snapshot.data['resolvedCategories'];
-    this.categoryFilters.unshift({ category: 'All', isFiltered: true });
+    this.categoryFilters.unshift({ categoryName: 'All', isFiltered: true });
 
     this.route.queryParamMap.subscribe(params => {
-      const category = params.get('category');
+      const categoryName = params.get('category');
       if (params.keys.length > 0 && params.keys[0] != 'category') {
         this.isValid = false;
       } else if (params.keys.length > 0 && params.keys[0] == 'category') {
-        if (!this.categoryFilters.some(c => c.category == category)) {
+        if (!this.categoryFilters.some(c => c.categoryName == categoryName)) {
           this.isValid = false;
         }
       }
@@ -68,7 +68,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
       this.route.data.subscribe(data => {
         const resolvedProducts: Product[] = data['resolvedProducts'];
-        this.onProductsRetrieved(this.getProductsWithResolvedCategories(resolvedProducts), category);
+        this.onProductsRetrieved(this.getProductsWithResolvedCategories(resolvedProducts), categoryName);
         this.listData = new MatTableDataSource(this.filteredProducts);
         this.listData.sort = this.sort;
         this.listData.paginator = this.paginator;
@@ -83,32 +83,32 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private onProductsRetrieved(products: Product[], category: string): void {
-    this.setFilteredCategory(category);
+  private onProductsRetrieved(products: Product[], categoryName: string): void {
+    this.setFilteredCategory(categoryName);
     this.filteredProducts = this.getProductsByCategory(products, this.getFilteredCategory());
     this.filteredName = '';
   }
 
   private getProductsByCategory(products: Product[], filteredCategory: string): Product[] {
-    return filteredCategory === 'All' ? products : products.filter(product => product.category == filteredCategory);
+    return filteredCategory === 'All' ? products : products.filter(product => product.categoryName == filteredCategory);
   }
 
   private getFilteredCategory(): string {
-    return this.categoryFilters.filter(category => category.isFiltered === true)[0].category;
+    return this.categoryFilters.filter(category => category.isFiltered === true)[0].categoryName;
   }
 
-  private setFilteredCategory(category: string) {
-    if (!category) {
-      category = 'All';
+  private setFilteredCategory(categoryName: string) {
+    if (!categoryName) {
+      categoryName = 'All';
     }
-    this.categoryFilters.map(c => c.isFiltered = c.category === category ? true : false);
+    this.categoryFilters.map(c => c.isFiltered = c.categoryName === categoryName ? true : false);
   }
 
   private getProductsWithResolvedCategories(products: Product[]): Product[] {
     for (let p of products) {
       for (let c of this.categoryFilters) {
         if (p.categoryID == c.categoryID) {
-          p.category = c.category;
+          p.categoryName = c.categoryName;
         }
       }
     }

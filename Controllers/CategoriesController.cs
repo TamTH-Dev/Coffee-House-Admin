@@ -17,13 +17,13 @@ namespace CoffeeHouse.Controllers {
 
         // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CategoryModel>>> GetCategories() {
+        public async Task<ActionResult<IEnumerable<Category>>> GetCategories() {
             return await _context.Categories.ToListAsync();
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CategoryModel>> GetCategory(int id) {
+        public async Task<ActionResult<Category>> GetCategory(int id) {
             var categoryModel = await _context.Categories.FindAsync(id);
 
             if (categoryModel == null) {
@@ -35,7 +35,7 @@ namespace CoffeeHouse.Controllers {
 
         // PUT: api/Categories/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCategory(int id, CategoryModel category) {
+        public async Task<IActionResult> UpdateCategory(int id, Category category) {
             if (id != category.CategoryID) {
                 return BadRequest();
             }
@@ -57,7 +57,7 @@ namespace CoffeeHouse.Controllers {
 
         // POST: api/Categories
         [HttpPost]
-        public async Task<ActionResult<CategoryModel>> CreateCategory(CategoryModel category) {
+        public async Task<ActionResult<Category>> CreateCategory(Category category) {
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 

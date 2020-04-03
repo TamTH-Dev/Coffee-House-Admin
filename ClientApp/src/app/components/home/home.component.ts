@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
     const tmp = {};
 
     this.categories.map(c => {
-      labels.push(c.category);
+      labels.push(c.categoryName);
       tmp[c.categoryID] = 0;
     });
 

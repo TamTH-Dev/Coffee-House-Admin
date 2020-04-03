@@ -19,23 +19,23 @@ namespace CoffeeHouse.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CoffeeHouse.Models.CategoryModel", b =>
+            modelBuilder.Entity("CoffeeHouse.Models.Category", b =>
                 {
                     b.Property<int>("CategoryID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Category")
+                    b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("CoffeeHouse.Models.ProductModel", b =>
@@ -53,14 +53,14 @@ namespace CoffeeHouse.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ImgPath")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -72,7 +72,7 @@ namespace CoffeeHouse.Migrations
 
                     b.HasIndex("CategoryID");
 
-                    b.ToTable("Products");
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -192,7 +192,7 @@ namespace CoffeeHouse.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("User");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
@@ -281,19 +281,19 @@ namespace CoffeeHouse.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CoffeeHouse.Models.IUser", b =>
+            modelBuilder.Entity("CoffeeHouse.Models.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(256)");
 
-                    b.HasDiscriminator().HasValue("IUser");
+                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("CoffeeHouse.Models.ProductModel", b =>
                 {
-                    b.HasOne("CoffeeHouse.Models.CategoryModel", "CategoryModel")
+                    b.HasOne("CoffeeHouse.Models.Category", "CategoryModel")
                         .WithMany()
                         .HasForeignKey("CategoryID")
                         .OnDelete(DeleteBehavior.Cascade)

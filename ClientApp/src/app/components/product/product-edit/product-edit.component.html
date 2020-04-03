@@ -63,20 +63,21 @@
         <mat-label>Category</mat-label>
         <mat-select
           required
-          #category="ngModel"
+          #categoryName="ngModel"
           [(ngModel)]="product.categoryID"
           name="categoryID"
           (mouseup)="isDirty = true"
         >
           <mat-option *ngFor="let ct of categories" [value]="ct.categoryID">
-            {{ ct.category }}
+            {{ ct.categoryName }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <span class="invalid-feedback">
         <span
           *ngIf="
-            (category.touched || category.dirty) && category.errors?.required
+            (categoryName.touched || categoryName.dirty) &&
+            categoryName.errors?.required
           "
         >
           Category is required.
