@@ -27,7 +27,7 @@ namespace CoffeeHouse.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(255)", nullable: true)
+                    FullName = table.Column<string>(type: "nvarchar(256)", nullable: true)
                 },
                 constraints: table =>
                 {

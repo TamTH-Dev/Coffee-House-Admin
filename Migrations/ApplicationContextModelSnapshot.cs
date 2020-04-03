@@ -281,14 +281,14 @@ namespace CoffeeHouse.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CoffeeHouse.Models.User", b =>
+            modelBuilder.Entity("CoffeeHouse.Models.IUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(256)");
 
-                    b.HasDiscriminator().HasValue("User");
+                    b.HasDiscriminator().HasValue("IUser");
                 });
 
             modelBuilder.Entity("CoffeeHouse.Models.ProductModel", b =>

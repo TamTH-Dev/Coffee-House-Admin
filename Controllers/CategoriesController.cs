@@ -45,7 +45,7 @@ namespace CoffeeHouse.Controllers {
             try {
                 await _context.SaveChangesAsync();
             } catch (DbUpdateConcurrencyException) {
-                if (!CategoryExists(id)) {
+                if (!DoesExists(id)) {
                     return NotFound();
                 } else {
                     throw;
@@ -64,7 +64,7 @@ namespace CoffeeHouse.Controllers {
             return CreatedAtAction("GetCategory", new { id = category.CategoryID }, category);
         }
 
-        private bool CategoryExists(int id) {
+        private bool DoesExists(int id) {
             return _context.Categories.Any(e => e.CategoryID == id);
         }
     }

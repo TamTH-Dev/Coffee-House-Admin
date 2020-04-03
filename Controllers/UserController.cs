@@ -15,11 +15,11 @@ namespace CoffeeHouse.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase {
-        private UserManager<User> _userManager;
+        private readonly UserManager<IUser> _userManager;
 
         private readonly ApplicationSettings _appSettings;
 
-        public UserController(UserManager<User> userManager, IOptions<ApplicationSettings> appSettings) {
+        public UserController(UserManager<IUser> userManager, IOptions<ApplicationSettings> appSettings) {
             _userManager = userManager;
             _appSettings = appSettings.Value;
         }
@@ -27,8 +27,8 @@ namespace CoffeeHouse.Controllers {
         // POST: api/User/Register
         [HttpPost]
         [Route("Register")]
-        public async Task<ActionResult<User>> Register(UserModel model) {
-            var user = new User() {
+        public async Task<ActionResult<IUser>> Register(UserModel model) {
+            var user = new IUser() {
                 UserName = model.UserName,
                 Email = model.Email,
                 FullName = model.FullName
@@ -45,7 +45,7 @@ namespace CoffeeHouse.Controllers {
         // POST: api/User/Login
         [HttpPost]
         [Route("Login")]
-        public async Task<ActionResult<User>> Login(LoginModel model) {
+        public async Task<ActionResult<IUser>> Login(UserModel model) {
             var user = await _userManager.FindByNameAsync(model.UserName);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password)) {
                 var tokenDescriptor = new SecurityTokenDescriptor {

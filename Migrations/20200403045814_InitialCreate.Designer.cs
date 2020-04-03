@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeHouse.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200329042010_InitialCreate")]
+    [Migration("20200403045814_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -283,14 +283,14 @@ namespace CoffeeHouse.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CoffeeHouse.Models.User", b =>
+            modelBuilder.Entity("CoffeeHouse.Models.IUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(256)");
 
-                    b.HasDiscriminator().HasValue("User");
+                    b.HasDiscriminator().HasValue("IUser");
                 });
 
             modelBuilder.Entity("CoffeeHouse.Models.ProductModel", b =>

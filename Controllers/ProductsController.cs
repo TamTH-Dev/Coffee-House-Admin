@@ -55,7 +55,7 @@ namespace CoffeeHouse.Controllers {
             try {
                 await _context.SaveChangesAsync();
             } catch (DbUpdateConcurrencyException) {
-                if (!ProductExists(id)) {
+                if (!DoesExists(id)) {
                     return NotFound();
                 } else {
                     throw;
@@ -93,7 +93,7 @@ namespace CoffeeHouse.Controllers {
             return NoContent();
         }
 
-        private bool ProductExists(int id) {
+        private bool DoesExists(int id) {
             return _context.Products.Any(e => e.ProductID == id);
         }
     }

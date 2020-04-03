@@ -31,7 +31,7 @@ namespace CoffeeHouse {
                 options.UseSqlServer(Configuration.GetConnectionString("Connection"));
             });
 
-            services.AddDefaultIdentity<User>()
+            services.AddDefaultIdentity<IUser>()
                 .AddEntityFrameworkStores<ApplicationContext>();
 
             services.Configure<IdentityOptions>(options => {
