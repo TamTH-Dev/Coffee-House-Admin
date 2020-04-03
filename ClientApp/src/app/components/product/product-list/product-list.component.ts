@@ -67,11 +67,13 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       }
 
       this.route.data.subscribe(data => {
-        const resolvedProducts: Product[] = data['resolvedProducts'];
-        this.onProductsRetrieved(this.getProductsWithResolvedCategories(resolvedProducts), categoryName);
-        this.listData = new MatTableDataSource(this.filteredProducts);
-        this.listData.sort = this.sort;
-        this.listData.paginator = this.paginator;
+        const resolvedProducts: Product[] = data['resolvedProducts'].reverse();
+        if (resolvedProducts) {
+          this.onProductsRetrieved(this.getProductsWithResolvedCategories(resolvedProducts), categoryName);
+          this.listData = new MatTableDataSource(this.filteredProducts);
+          this.listData.sort = this.sort;
+          this.listData.paginator = this.paginator;
+        }
       });
     })
   }
@@ -85,6 +87,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
   private onProductsRetrieved(products: Product[], categoryName: string): void {
     this.setFilteredCategory(categoryName);
+    products.map(product => product.imgPath = `https://picsum.photos/id/${product.productID}/126/84`);
     this.filteredProducts = this.getProductsByCategory(products, this.getFilteredCategory());
     this.filteredName = '';
   }

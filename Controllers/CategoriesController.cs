@@ -58,14 +58,22 @@ namespace CoffeeHouse.Controllers {
         // POST: api/Categories
         [HttpPost]
         public async Task<ActionResult<Category>> CreateCategory(Category category) {
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
+            if (!IsDuplicate(category.CategoryName)) {
+                _context.Categories.Add(category);
+                await _context.SaveChangesAsync();
+            } else {
+                return BadRequest(new { message = "This Category existed" });
+            }
 
             return CreatedAtAction("GetCategory", new { id = category.CategoryID }, category);
         }
 
         private bool DoesExists(int id) {
-            return _context.Categories.Any(e => e.CategoryID == id);
+            return _context.Categories.Any(c => c.CategoryID == id);
+        }
+
+        private bool IsDuplicate(string categoryName) {
+            return _context.Categories.Any(c => c.CategoryName.Trim().ToLower() == categoryName.Trim().ToLower());
         }
     }
 }

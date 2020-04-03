@@ -60,9 +60,11 @@ export class HomeComponent implements OnInit {
       data.push(tmp[key])
     }
 
-    this.buildBarChart(data, labels);
-    this.buildPieChart(data, labels);
-    this.buildLineChart();
+    if (data.length > 0) {
+      this.buildBarChart(data, labels);
+      this.buildPieChart(data, labels);
+      this.buildLineChart();
+    }
   }
 
   private buildBarChart(data: number[], labels: string[]): void {

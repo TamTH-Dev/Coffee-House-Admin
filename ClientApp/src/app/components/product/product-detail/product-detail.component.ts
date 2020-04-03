@@ -27,15 +27,17 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       const resolvedProduct: Product = data['resolvedProduct'];
-      this.onProductRetrieved(resolvedProduct);
+      if (resolvedProduct) {
+        this.onProductRetrieved(resolvedProduct);
+      }
     });
   }
 
   private onProductRetrieved(product: Product): void {
-    this.product = product;
     this.categoryService.getCategory(product.categoryID)
       .subscribe({
         next: c => {
+          this.product = { ...product, categoryName: c.categoryName };
           this.isCategoryActive = c.status
         },
         error: err => {
@@ -61,7 +63,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private onDeleteSuccess(): void {
-    setTimeout(() => this.toastr.success('Deleted Successfully!', 'Product Deleting'), 1000);
+    this.toastr.success('Deleted Successfully!', 'Product Deleting');
     this.router.navigate(['/products'], {
       queryParamsHandling: 'preserve'
     });
@@ -84,7 +86,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private onRestoreSuccess(): void {
-    setTimeout(() => this.toastr.success('Restored Successfully!', 'Product Restoring'), 1000);
+    this.toastr.success('Restored Successfully!', 'Product Restoring');
     this.router.navigate(['/products'], {
       queryParamsHandling: 'preserve'
     });

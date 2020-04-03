@@ -28,7 +28,9 @@ export class ProductEditComponent implements OnInit {
     this.categories = this.route.snapshot.data['resolvedCategories'];
     this.route.data.subscribe(data => {
       const resolvedProduct: Product = data['resolvedProduct'];
-      this.onProductRetrieved(resolvedProduct);
+      if (resolvedProduct) {
+        this.onProductRetrieved(resolvedProduct);
+      }
     });
   }
 
@@ -46,7 +48,12 @@ export class ProductEditComponent implements OnInit {
             this.isDirty = false;
           },
           error: err => {
-            console.log(err);
+            if (err.status == 400) {
+              this.toastr.error('This product\'s name existed', 'Update Product Failed');
+              form.controls['productName'].reset();
+            } else {
+              console.log(err);
+            }
           }
         });
     }
@@ -69,14 +76,14 @@ export class ProductEditComponent implements OnInit {
   }
 
   private onSaveSuccess(): void {
-    setTimeout(() => this.toastr.success('Updated Successfully!', 'Product Updating'), 1000);
+    this.toastr.success('Updated Successfully!', 'Product Updating');
     this.router.navigate(['/products'], {
       queryParamsHandling: "preserve"
     });
   }
 
   private onDeleteSuccess(): void {
-    setTimeout(() => this.toastr.success('Deleted Successfully!', 'Product Deleting'), 1000);
+    this.toastr.success('Deleted Successfully!', 'Product Deleting');
     this.router.navigate(['/products'], {
       queryParamsHandling: "preserve"
     });

@@ -49,14 +49,19 @@ export class ProductCreateComponent implements OnInit {
             this.isDirty = false;
           },
           error: err => {
-            console.log(err);
+            if (err.status == 400) {
+              this.toastr.error('This product\'s name existed', 'Create Product Failed');
+              form.controls['productName'].reset();
+            } else {
+              console.log(err);
+            }
           }
         });
     }
   }
 
   private onCreateSuccess(): void {
-    setTimeout(() => this.toastr.success('Created Successfully!', 'Product Creating'), 1000);
+    this.toastr.success('Created Successfully!', 'Product Creating');
     this.router.navigate(['/products'], {
       queryParamsHandling: "preserve"
     });

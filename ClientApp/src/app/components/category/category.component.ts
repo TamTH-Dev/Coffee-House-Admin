@@ -52,7 +52,12 @@ export class CategoryComponent implements OnInit {
             this.onCreateSuccess(category);
           },
           error: err => {
-            console.log(err);
+            if (err.status == 400) {
+              this.newCategory = '';
+              this.toastr.error('This category existed', 'Create Category Failed');
+            } else {
+              console.log(err);
+            }
           }
         });
     } else {

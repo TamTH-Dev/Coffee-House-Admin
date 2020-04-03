@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoffeeHouse.Models {
     [Table("Product")]
-    public class ProductModel {
+    public class Product {
         [Key]
         [Required]
         public int ProductID { get; set; }

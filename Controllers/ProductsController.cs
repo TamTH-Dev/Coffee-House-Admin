@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -17,17 +18,23 @@ namespace CoffeeHouse.Controllers {
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductModel>>> GetProducts() {
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts() {
             return await _context.Products.ToListAsync();
         }
 
         // GET: api/Products/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductModel>> GetProduct(int id) {
-            var product = await _context.Products.FindAsync(id);
+        public async Task<ActionResult<Product>> GetProduct(int id) {
+            Product product;
 
-            if (product == null) {
-                return NotFound();
+            try {
+                product = await _context.Products.FindAsync(id);
+            } catch (Exception) {
+                if (!DoesExists(id)) {
+                    return NotFound();
+                } else {
+                    throw;
+                }
             }
 
             return product;
@@ -35,9 +42,13 @@ namespace CoffeeHouse.Controllers {
 
         // POST: api/Products
         [HttpPost]
-        public async Task<ActionResult<ProductModel>> CreateProduct(ProductModel product) {
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
+        public async Task<ActionResult<Product>> CreateProduct(Product product) {
+            if (!IsDuplicate(product.ProductName)) {
+                _context.Products.Add(product);
+                await _context.SaveChangesAsync();
+            } else {
+                return BadRequest(new { message = "This Product's Name existed" });
+            }
 
             return CreatedAtAction("GetProduct", new { id = product.ProductID }, product);
         }
@@ -45,22 +56,34 @@ namespace CoffeeHouse.Controllers {
 
         // PUT: api/Products/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, ProductModel product) {
-            if (id != product.ProductID) {
-                return BadRequest();
-            }
-
-            _context.Entry(product).State = EntityState.Modified;
-
-            try {
-                await _context.SaveChangesAsync();
-            } catch (DbUpdateConcurrencyException) {
-                if (!DoesExists(id)) {
-                    return NotFound();
-                } else {
-                    throw;
+        public async Task<IActionResult> UpdateProduct(int id, Product product) {
+            bool isValid = true;
+            if (GetProductName(id) != product.ProductName) {
+                if (IsDuplicate(product.ProductName)) {
+                    isValid = false;
                 }
             }
+
+            if (isValid) {
+                if (id != product.ProductID) {
+                    return BadRequest();
+                }
+
+                _context.Entry(product).State = EntityState.Modified;
+
+                try {
+                    await _context.SaveChangesAsync();
+                } catch (DbUpdateConcurrencyException) {
+                    if (!DoesExists(id)) {
+                        return NotFound();
+                    } else {
+                        throw;
+                    }
+                }
+            } else {
+                return BadRequest(new { message = "This Product's Name existed" });
+            }
+
 
             return NoContent();
         }
@@ -94,7 +117,15 @@ namespace CoffeeHouse.Controllers {
         }
 
         private bool DoesExists(int id) {
-            return _context.Products.Any(e => e.ProductID == id);
+            return _context.Products.Any(p => p.ProductID == id);
+        }
+
+        private bool IsDuplicate(string productName) {
+            return _context.Products.Any(p => p.ProductName.Trim().ToLower() == productName.Trim().ToLower());
+        }
+
+        private string GetProductName(int id) {
+            return _context.Products.Find(id).ProductName;
         }
     }
 }

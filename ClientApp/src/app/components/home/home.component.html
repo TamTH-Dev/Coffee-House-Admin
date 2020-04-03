@@ -1,4 +1,7 @@
-<div class="home-container" *ngIf="products && categories">
+<div
+  class="home-container"
+  *ngIf="products && categories && products.length > 0"
+>
   <div class="chart-container">
     <div class="chart-item">
       <canvas id="bar"></canvas>
