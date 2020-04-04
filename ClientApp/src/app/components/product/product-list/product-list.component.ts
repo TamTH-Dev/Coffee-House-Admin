@@ -67,7 +67,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
       }
 
       this.route.data.subscribe(data => {
-        const resolvedProducts: Product[] = data['resolvedProducts'].reverse();
+        const resolvedProducts: Product[] = data['resolvedProducts'];
         if (resolvedProducts) {
           this.onProductsRetrieved(this.getProductsWithResolvedCategories(resolvedProducts), categoryName);
           this.listData = new MatTableDataSource(this.filteredProducts);
@@ -82,6 +82,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     if (this.isValid) {
       this.listData.sort = this.sort;
       this.listData.paginator = this.paginator;
+      this.listData.paginator._intl.itemsPerPageLabel = "Products per page:";
     }
   }
 

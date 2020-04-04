@@ -38,9 +38,12 @@ export class NavbarComponent implements OnInit {
   }
 
   onLogout(): void {
-    localStorage.removeItem('token');
-    this.ngZone.runOutsideAngular(() => BootController.getbootControl().restart());
-    this.router.navigateByUrl('user/login');
+    const doesLogout = confirm('Are you sure you want to logout?');
+    if (doesLogout) {
+      localStorage.removeItem('token');
+      this.ngZone.runOutsideAngular(() => BootController.getbootControl().restart());
+      this.router.navigateByUrl('user/login');
+    }
   }
 
 }
