@@ -4,6 +4,8 @@ D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\e2e\src\app.e2e-spec.js
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\e2e\src\app.e2e-spec.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\boot-controller.js
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\boot-controller.js.map
+D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\services\user.service.js
+D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\services\user.service.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\auth\auth.guard.js
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\auth\auth.guard.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\auth\login.guard.js
@@ -22,8 +24,6 @@ D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\page-not-found
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\page-not-found\page-not-found.component.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\models\user.model.js
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\models\user.model.js.map
-D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\services\user.service.js
-D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\services\user.service.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\user\login\login.component.js
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\components\user\login\login.component.js.map
 D:\Projects\CoffeeHouse\ClientApp\dist\out-tsc\src\app\shared\material.module.js
