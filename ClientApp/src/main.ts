@@ -18,5 +18,3 @@ const init = () => {
 init();
 
 BootController.getbootControl().watchReboot().subscribe(() => init());
-// platformBrowserDynamic().bootstrapModule(AppModule)
-//   .catch(err => console.error(err));

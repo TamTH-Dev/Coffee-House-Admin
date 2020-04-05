@@ -54,7 +54,10 @@
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef>Product's Image</th>
       <td mat-cell *matCellDef="let product" class="col img-container">
-        <img [src]="product.imgPath" alt="Product's Image" />
+        <img
+          src="https://picsum.photos/id/{{ product.productID }}/126/84"
+          alt="Product's Image"
+        />
       </td>
     </ng-container>
 

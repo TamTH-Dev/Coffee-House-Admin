@@ -88,7 +88,6 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
   private onProductsRetrieved(products: Product[], categoryName: string): void {
     this.setFilteredCategory(categoryName);
-    products.map(product => product.imgPath = `https://picsum.photos/id/${product.productID}/126/84`);
     this.filteredProducts = this.getProductsByCategory(products, this.getFilteredCategory());
     this.filteredName = '';
   }

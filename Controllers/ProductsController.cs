@@ -57,31 +57,20 @@ namespace CoffeeHouse.Controllers {
         // PUT: api/Products/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct(int id, Product product) {
-            bool isValid = true;
-            if (GetProductName(id) != product.ProductName) {
-                if (IsDuplicate(product.ProductName)) {
-                    isValid = false;
-                }
+            if (id != product.ProductID) {
+                return BadRequest();
             }
 
-            if (isValid) {
-                if (id != product.ProductID) {
-                    return BadRequest();
-                }
+            _context.Entry(product).State = EntityState.Modified;
 
-                _context.Entry(product).State = EntityState.Modified;
-
-                try {
-                    await _context.SaveChangesAsync();
-                } catch (DbUpdateConcurrencyException) {
-                    if (!DoesExists(id)) {
-                        return NotFound();
-                    } else {
-                        throw;
-                    }
+            try {
+                await _context.SaveChangesAsync();
+            } catch (DbUpdateConcurrencyException) {
+                if (!DoesExists(id)) {
+                    return NotFound();
+                } else {
+                    throw;
                 }
-            } else {
-                return BadRequest(new { message = "This Product's Name existed" });
             }
 
 

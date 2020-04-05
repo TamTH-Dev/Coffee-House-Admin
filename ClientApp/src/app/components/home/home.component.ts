@@ -159,15 +159,15 @@ export class HomeComponent implements OnInit {
         datasets: [{
           label: 'Sales ($)',
           data: [45, 68, 70, 40, 55, 92, 75, 86, 67, 52, 48, 60],
-          backgroundColor: 'rgba(255, 0, 0, 0.4)',
-          borderColor: 'rgba(255, 0, 0, 1)',
-          borderWidth: 1
+          backgroundColor: 'transparent',
+          borderColor: '#f00',
+          borderWidth: 2
         }, {
           label: 'Earnings ($)',
           data: [21, 34, 35, 20, 20, 50, 43, 56, 40, 30, 24, 37],
-          backgroundColor: 'rgba(0, 0, 255, 0.4)',
-          borderColor: 'rgba(0, 0, 255, 1)',
-          borderWidth: 1
+          backgroundColor: 'transparent',
+          borderColor: '#00f',
+          borderWidth: 2
         }]
       },
       options: this.getLineOptions()

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanDeactivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
+
 import { ProductEditComponent } from './product-edit.component';
 
 @Injectable({

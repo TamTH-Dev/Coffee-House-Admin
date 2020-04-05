@@ -17,17 +17,6 @@ export class ProductCreateComponent implements OnInit {
   isDirty: boolean = false;
   categories: Category[];
 
-  // uploadImg = null;
-  // imgUrl: string = null;
-  // onFileSelected(event) {
-  //   this.uploadImg = event.target.files.item(0);
-  //   let reader = new FileReader();
-  //   reader.onload = (event: any) => {
-  //     this.imgUrl = event.target.result;
-  //   }
-  //   reader.readAsDataURL(this.uploadImg);
-  // }
-
   constructor(
     private productService: ProductService,
     private router: Router,
