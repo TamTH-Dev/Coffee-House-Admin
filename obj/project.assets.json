@@ -9511,11 +9511,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\CoffeeHouse\\CoffeeHouse.csproj",
+      "projectUniqueName": "D:\\Projects\\CoffeeHouseAdmin_PRN292_1\\SourceCode\\CoffeeHouse\\CoffeeHouse.csproj",
       "projectName": "CoffeeHouse",
-      "projectPath": "D:\\Projects\\CoffeeHouse\\CoffeeHouse.csproj",
+      "projectPath": "D:\\Projects\\CoffeeHouseAdmin_PRN292_1\\SourceCode\\CoffeeHouse\\CoffeeHouse.csproj",
       "packagesPath": "C:\\Users\\hoang\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\CoffeeHouse\\obj\\",
+      "outputPath": "D:\\Projects\\CoffeeHouseAdmin_PRN292_1\\SourceCode\\CoffeeHouse\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hoang\\AppData\\Roaming\\NuGet\\NuGet.Config",
